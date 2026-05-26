@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react';
-import HelloCube from './HelloCube';
+import EtherNexusScene from './scenes/EtherNexusScene';
 
 export default function App() {
   const [input, setInput] = useState('');
@@ -12,21 +12,22 @@ export default function App() {
 
   return (
     <div className="app">
+      <h1 className="app-title text-heading">EtherNetic</h1>
       <main className="viewport">
-        <HelloCube />
+        <EtherNexusScene />
       </main>
-      <footer className="input-bar">
+      <footer className="input-bar panel panel--ether">
         <form className="input-form" onSubmit={handleSubmit}>
           <input
             type="text"
-            className="input-field"
+            className="input"
             placeholder="Speak to the EtherNet…"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             aria-label="Message input"
             autoComplete="off"
           />
-          <button type="submit" className="input-submit">
+          <button type="submit" className="btn btn--nav">
             Send
           </button>
         </form>

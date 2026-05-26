@@ -62,16 +62,16 @@ The closest thing to a narrator who still has a stake. Luminia does not command 
 - **Elara:** Protective; asks the player not to assume guilt.
 - **Zephyr:** Grief for the stolen voice; urges caution with whoever took it.
 - **Calyx:** Respectful fear; calls them “the necessary end.”
-- **Locations:** EtherNet nexus, faint paths toward Thalos.
+- **Locations:** [Ether nexus](../locations/ether-nexus.md), faint paths toward Thalos.
 - **Quests:** Framing quest for Ch.1; optional reveal of Portal lore.
 
 ## Presence
 
 | Signal | Effect hint |
 |--------|-------------|
-| Strong EtherNet | Warm gold particles, soft chime |
-| Low trust | Dimmer key light, longer pauses in text stream |
-| High trust | Constellation-like lines between UI and horizon |
+| Strong EtherNet | Steely blue accent particles (`#6D7BA6`), silver far motes; soft chime (future) |
+| Low trust | Dimmer particles, longer pauses in text stream |
+| High trust | Brighter constellation lines between UI and horizon — see `lore/locations/ether-nexus.md` |
 
 ## Summon
 

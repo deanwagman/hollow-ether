@@ -33,7 +33,7 @@
 
 | | |
 |--|--|
-| **Location** | Ether nexus (gold particles, empty horizon) |
+| **Location** | Ether nexus (accent particles, empty horizon) — see `lore/locations/ether-nexus.md` |
 | **Active spirit** | Luminia only |
 | **Goal** | Orient the Witness; teach “listen, don’t seize” |
 | **Allowed** | Ask where am I; ask who are you; listen; refuse to rush |

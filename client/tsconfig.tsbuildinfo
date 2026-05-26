@@ -1,1 +1,1 @@
-{"root":["./src/app.tsx","./src/hellocube.tsx","./src/main.tsx","./src/vite-env.d.ts"],"version":"5.9.3"}
+{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/scenes/ethernexusscene.tsx","./src/scenes/particlefield.tsx","./src/scenes/particleutils.ts","./src/scenes/useparticlesize.ts","./src/scenes/usereducedmotionpreference.ts","./src/theme/tokens.ts"],"version":"5.9.3"}

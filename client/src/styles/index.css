@@ -1,0 +1,19 @@
+@import './tokens.css';
+@import './typography.css';
+@import './components.css';
+@import './effects.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}

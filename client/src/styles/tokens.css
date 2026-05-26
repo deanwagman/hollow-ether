@@ -1,0 +1,57 @@
+:root {
+  /* Base */
+  --color-base-black: #0a0a0a;
+  --color-base-charcoal: #1e1e1e;
+  --color-base-navy: #0c1440;
+
+  /* Text */
+  --color-text-primary: #f5f5f5;
+  --color-text-secondary: #e0e0e0;
+  --color-text-muted: #a8adb8;
+
+  /* Accent */
+  --color-accent: #6d7ba6;
+  --color-accent-muted: #afafaf;
+
+  /* Surfaces */
+  --color-panel-bg: rgba(0, 0, 0, 0.6);
+  --color-border-subtle: rgba(109, 123, 166, 0.35);
+  --color-glow: rgba(109, 123, 166, 0.45);
+  --color-glow-soft: rgba(175, 175, 175, 0.25);
+
+  /* Typography families (loaded in index.html) */
+  --font-display: 'Oxanium', system-ui, sans-serif;
+  --font-nav: 'Audiowide', system-ui, sans-serif;
+  --font-mono: 'Kode Mono', ui-monospace, monospace;
+  --font-body: 'Noto Sans', 'Noto Sans JP', system-ui, sans-serif;
+
+  /* Type scale */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+
+  --leading-body: 1.5;
+  --leading-tight: 1.25;
+  --tracking-label: 0.12em;
+  --tracking-heading: 0.08em;
+
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 0.75rem;
+  --space-lg: 1rem;
+  --space-xl: 1.5rem;
+
+  /* Layout */
+  --input-bar-height: 4rem;
+  --radius-sm: 2px;
+  --content-max-width: 48rem;
+
+  /* Motion */
+  --motion-slow: 8s;
+  --motion-medium: 400ms;
+  --motion-fast: 200ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
