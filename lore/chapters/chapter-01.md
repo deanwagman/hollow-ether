@@ -49,9 +49,9 @@ Luminia does **not** summon other spirits. She may **name** Elara as someone the
 | **Active spirit** | Luminia only |
 | **Goal** | Point player toward Tide reflection path; withhold Thalos proper noun (“a door that must not open early”) |
 | **Allowed** | Ask about Elara; ask about courts; promise to listen first |
-| **Flags** | `luminia_trust` if affinity ≥ 40; optional `luminia_warned_door` (not `luminia_warned_thalos` yet) |
+| **Flags** | `luminia_trust` if affinity ≥ 40 (mock: patient keywords); optional `luminia_warned_door` (not `luminia_warned_thalos` yet) |
 
-**Act 1 complete when:** Player accepts invitation to find Elara (explicit or implied).
+**Act 1 complete when:** Player accepts invitation to find Elara (explicit or implied). Sets `act1_invitation_accepted` (unlocks Act 2 / Elara summon).
 
 ---
 
@@ -237,7 +237,7 @@ Optional: one-line **echo** (not conversation) from Elara/Zephyr/Calyx if high a
 ## Flag checklist (happy path)
 
 ```
-met_luminia → met_elara → elara_believed → met_zephyr →
+met_luminia → act1_invitation_accepted → met_elara → elara_believed → met_zephyr →
 mute_bell_found → zephyr_voice_restored → witness_credibility →
 met_calyx → calyx_cleared_of_theft → elara_memory_shown → chapter_1_complete
 ```
