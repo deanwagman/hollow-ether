@@ -1,6 +1,6 @@
 # EtherNetic architecture
 
-High-level layout for the monorepo. **Canonical game state** lives on the server per `sessionId`; the client mirrors it via TanStack Query.
+High-level layout for the monorepo. **Canonical game state** lives on the server per `sessionId`, persisted in **PostgreSQL** via **Prisma**; the client mirrors it via TanStack Query.
 
 ## Packages
 
@@ -8,25 +8,29 @@ High-level layout for the monorepo. **Canonical game state** lives on the server
 |---------|------|------|
 | `@ethernetic/shared` | `packages/shared/` | Types, `mockInteract`, `createInitialSession`, `applyInteract` |
 | `@ethernetic/client` | `client/` | React, R3F, TanStack Query, UI |
-| `@ethernetic/server` | `server/` | NestJS sessions API |
+| `@ethernetic/server` | `server/` | NestJS sessions API + Prisma |
 
 ## Development request flow
 
 ```text
 Browser (localhost:5173)
   ├── /, assets              → Vite
-  ├── /api/sessions          → Vite proxy → Nest (create session)
-  ├── /api/sessions/:id/interact → Nest (applyInteract via shared)
+  ├── /api/sessions          → Vite proxy → Nest → Prisma → Postgres
+  ├── /api/sessions/:id/interact → same
   └── TanStack Query cache   → mirrors server GameState in UI
 ```
 
-`npm run dev` starts Vite and Nest together.
+`npm run dev` starts Vite and Nest. Postgres runs via `npm run db:up` (Docker Compose).
 
-**Sessions are in-memory** on the server. Restarting Nest clears all sessions. A full page refresh creates a new session (no `localStorage` resume yet).
+**Sessions survive API restart** (same `sessionId` in DB). The browser stores `sessionId` in `localStorage` under `ethernetic_session_id` and attempts `GET /api/sessions/:id` on load before creating a new session.
 
-Direct API: `curl -X POST http://localhost:5173/api/sessions`
+## Data model
 
-## API (Phase 1)
+| Model | Storage |
+|-------|---------|
+| `Session` | `id` (UUID), `state` (JSON `GameState`), timestamps |
+
+## API
 
 | Method | Path | Description |
 |--------|------|-------------|
@@ -36,7 +40,6 @@ Direct API: `curl -X POST http://localhost:5173/api/sessions`
 
 ## Planned (not implemented)
 
-- `localStorage` session resume
-- Prisma + Postgres
+- Session TTL / cleanup of old rows
 - LLM behind interact
 - Production: Nest serves `client/dist` at `/`

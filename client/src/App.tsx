@@ -2,11 +2,14 @@ import { FormEvent, useEffect, useState } from 'react';
 import NarrativePanel from './components/NarrativePanel';
 import { useGameSession, useInteract } from './game/useGameSession';
 import { pingApi } from './lib/api';
+import { clearStoredSessionId } from './lib/gameSessionStorage';
 import EtherNexusScene from './scenes/EtherNexusScene';
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function App() {
   const [input, setInput] = useState('');
-  const { session, isPending, isError } = useGameSession();
+  const queryClient = useQueryClient();
+  const { session, isPending, isError, refetch } = useGameSession();
   const interactMutation = useInteract(session);
 
   const state = session?.state;
@@ -36,6 +39,12 @@ export default function App() {
   const placeholder = state?.inputDisabled
     ? 'Act 1 complete — Elara awaits (coming soon).'
     : 'Speak to the EtherNet…';
+
+  async function handleNewGame() {
+    clearStoredSessionId();
+    await queryClient.resetQueries({ queryKey: ['gameSession'] });
+    await refetch();
+  }
 
   return (
     <div className="app">
@@ -67,6 +76,15 @@ export default function App() {
             autoComplete="off"
             disabled={inputDisabled || isBusy || isError}
           />
+          <button
+            type="button"
+            className="btn btn--nav"
+            onClick={handleNewGame}
+            disabled={isBusy}
+            aria-label="Start a new game session"
+          >
+            New game
+          </button>
           <button
             type="submit"
             className="btn btn--nav"

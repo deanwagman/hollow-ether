@@ -16,23 +16,23 @@ import { SessionStore } from './session.store';
 export class SessionService {
   constructor(private readonly store: SessionStore) {}
 
-  createSession(): SessionPayload {
+  async createSession(): Promise<SessionPayload> {
     const sessionId = randomUUID();
     const state = createInitialSession();
-    this.store.create(sessionId, state);
+    await this.store.create(sessionId, state);
     return { sessionId, state };
   }
 
-  getSession(sessionId: string): GameState {
-    const state = this.store.get(sessionId);
+  async getSession(sessionId: string): Promise<GameState> {
+    const state = await this.store.get(sessionId);
     if (!state) {
       throw new NotFoundException('Session not found');
     }
     return state;
   }
 
-  interact(sessionId: string, text: string): GameState {
-    const state = this.store.get(sessionId);
+  async interact(sessionId: string, text: string): Promise<GameState> {
+    const state = await this.store.get(sessionId);
     if (!state) {
       throw new NotFoundException('Session not found');
     }
@@ -47,7 +47,7 @@ export class SessionService {
       return state;
     }
 
-    this.store.set(sessionId, next);
+    await this.store.set(sessionId, next);
     return next;
   }
 }

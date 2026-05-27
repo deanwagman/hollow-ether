@@ -1,23 +1,31 @@
 import { Injectable } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
 import type { GameState } from '@ethernetic/shared';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class SessionStore {
-  private readonly sessions = new Map<string, GameState>();
+  constructor(private readonly prisma: PrismaService) {}
 
-  create(id: string, state: GameState): void {
-    this.sessions.set(id, state);
+  async create(id: string, state: GameState): Promise<void> {
+    await this.prisma.session.create({
+      data: {
+        id,
+        state: state as unknown as Prisma.InputJsonValue,
+      },
+    });
   }
 
-  get(id: string): GameState | undefined {
-    return this.sessions.get(id);
+  async get(id: string): Promise<GameState | undefined> {
+    const row = await this.prisma.session.findUnique({ where: { id } });
+    if (!row) return undefined;
+    return row.state as GameState;
   }
 
-  set(id: string, state: GameState): void {
-    this.sessions.set(id, state);
-  }
-
-  has(id: string): boolean {
-    return this.sessions.has(id);
+  async set(id: string, state: GameState): Promise<void> {
+    await this.prisma.session.update({
+      where: { id },
+      data: { state: state as unknown as Prisma.InputJsonValue },
+    });
   }
 }

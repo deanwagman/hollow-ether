@@ -1,13 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { SessionPayload } from '@ethernetic/shared';
-import { createSession, interact } from '../lib/sessionApi';
+import { interact, loadOrCreateSession } from '../lib/sessionApi';
 
 export const GAME_SESSION_KEY = ['gameSession'] as const;
 
 export function useGameSession() {
   const query = useQuery({
     queryKey: GAME_SESSION_KEY,
-    queryFn: createSession,
+    queryFn: loadOrCreateSession,
     staleTime: Infinity,
     retry: 1,
   });
