@@ -1,6 +1,7 @@
 import { FormEvent, useEffect, useState } from 'react';
 import NarrativePanel from './components/NarrativePanel';
 import { useGameStore } from './game/useGameStore';
+import { pingApi } from './lib/api';
 import EtherNexusScene from './scenes/EtherNexusScene';
 
 export default function App() {
@@ -12,6 +13,17 @@ export default function App() {
   useEffect(() => {
     seedOpening();
   }, [seedOpening]);
+
+  useEffect(() => {
+    if (!import.meta.env.DEV) return;
+    pingApi().then((ok) => {
+      if (ok) {
+        console.debug('[ethernetic] API reachable at /api/health');
+      } else {
+        console.debug('[ethernetic] API ping failed — is the server running? (npm run dev)');
+      }
+    });
+  }, []);
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
