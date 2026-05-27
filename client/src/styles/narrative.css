@@ -44,6 +44,10 @@
   color: var(--color-text-primary);
 }
 
+.narrative-panel--status {
+  padding: var(--space-md) var(--space-lg);
+}
+
 .narrative-message__speaker {
   font-family: var(--font-nav);
   font-size: var(--text-xs);

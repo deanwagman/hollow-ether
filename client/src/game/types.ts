@@ -1,36 +1,9 @@
-export type SceneId = 'ch1_awakening' | 'ch1_invitation';
-
-export type SpiritId = 'luminia';
-
-export type SpeakerId = 'player' | SpiritId;
-
-export type GameFlags = {
-  met_luminia: boolean;
-  luminia_trust: boolean;
-  luminia_warned_door: boolean;
-  act1_invitation_accepted: boolean;
-};
-
-export type NarrativeLine = {
-  id: string;
-  speaker: SpeakerId;
-  text: string;
-};
-
-export const INITIAL_FLAGS: GameFlags = {
-  met_luminia: false,
-  luminia_trust: false,
-  luminia_warned_door: false,
-  act1_invitation_accepted: false,
-};
-
-export type InteractMeta = {
-  awakeningTurns: number;
-  awakeningOrientationSeen: boolean;
-};
-
-export type InteractResult = {
-  spiritLines: string[];
-  flagUpdates: Partial<GameFlags>;
-  nextScene?: SceneId;
-};
+export type {
+  GameFlags,
+  GameState,
+  NarrativeLine,
+  SceneId,
+  SessionPayload,
+  SpeakerId,
+  SpiritId,
+} from '@ethernetic/shared';

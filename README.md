@@ -6,6 +6,7 @@ AI-driven narrative experience on a minimalist, reactive 3D world.
 
 ```bash
 npm install
+npm run build:shared   # first time / after editing packages/shared
 npm run dev
 ```
 
@@ -16,38 +17,36 @@ Starts **both** the client and API:
 | App (Vite) | http://localhost:5173 |
 | API (proxied) | http://localhost:5173/api/* → Nest on :3000 |
 
-Gameplay (Act 1 mock) runs in the browser; the server exposes `/api/health` today.
+Game state is **server-authoritative** (in-memory sessions). A page refresh starts a new session. Restarting the API clears all sessions.
 
 ```bash
-curl http://localhost:5173/api/health
-# {"status":"ok","service":"ethernetic"}
+curl -X POST http://localhost:5173/api/sessions
+# {"sessionId":"...","state":{...}}
 ```
 
-### Single-process dev
+### Scripts
 
-| Script | Use when |
-|--------|----------|
-| `npm run dev:client` | Front-end only (no API) |
-| `npm run dev:server` | Nest only — http://localhost:3000/api/health |
+| Script | Purpose |
+|--------|---------|
+| `npm run dev` | Client + server |
+| `npm run dev:client` | Vite only (game will not load without API) |
+| `npm run dev:server` | Nest only |
+| `npm run build:shared` | Compile shared game logic |
+| `npm run test:shared` | Unit tests for `applyInteract` |
+| `npm run build:server` | Shared + Nest build |
 
-### Build
-
-- Client: `npm run build`
-- Server: `npm run build:server` — run with `npm run start -w server`
+After editing mock dialogue in `packages/shared`, run `npm run build:shared` (or keep `tsc -w` running in that package).
 
 ### Workspaces
 
-| Package | Path | Description |
-|---------|------|-------------|
-| `@ethernetic/client` | `client/` | React + Three.js (R3F) front-end |
-| `@ethernetic/server` | `server/` | NestJS API |
+| Package | Path |
+|---------|------|
+| `@ethernetic/client` | `client/` |
+| `@ethernetic/server` | `server/` |
+| `@ethernetic/shared` | `packages/shared/` |
 
 ## Phase 1 — Ether Nexus (Act 1)
 
-- Fixed camera (no orbit controls)
-- Particle starfield, Mystic Monochrome palette ([docs/design/mystic-monochrome.md](docs/design/mystic-monochrome.md))
-- Act 1 Luminia mock dialogue via Zustand ([lore/chapters/chapter-01.md](lore/chapters/chapter-01.md))
-
-Lore and narrative systems live under `lore/`. See [docs/Plan.md](docs/Plan.md) for the full roadmap and [docs/architecture.md](docs/architecture.md) for API plans.
+Act 1 Luminia dialogue runs through the sessions API. See [docs/architecture.md](docs/architecture.md) and [lore/chapters/chapter-01.md](lore/chapters/chapter-01.md).
 
 Design tokens: `client/src/styles/`, `client/src/theme/tokens.ts`.

@@ -1,18 +1,18 @@
 import { FormEvent, useEffect, useState } from 'react';
 import NarrativePanel from './components/NarrativePanel';
-import { useGameStore } from './game/useGameStore';
+import { useGameSession, useInteract } from './game/useGameSession';
 import { pingApi } from './lib/api';
 import EtherNexusScene from './scenes/EtherNexusScene';
 
 export default function App() {
   const [input, setInput] = useState('');
-  const submitInput = useGameStore((s) => s.submitInput);
-  const seedOpening = useGameStore((s) => s.seedOpening);
-  const inputDisabled = useGameStore((s) => s.inputDisabled);
+  const { session, isPending, isError } = useGameSession();
+  const interactMutation = useInteract(session);
 
-  useEffect(() => {
-    seedOpening();
-  }, [seedOpening]);
+  const state = session?.state;
+  const inputDisabled =
+    state?.inputDisabled ?? true;
+  const isBusy = isPending || interactMutation.isPending;
 
   useEffect(() => {
     if (!import.meta.env.DEV) return;
@@ -28,12 +28,12 @@ export default function App() {
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
     const trimmed = input.trim();
-    if (!trimmed || inputDisabled) return;
-    submitInput(trimmed);
+    if (!trimmed || inputDisabled || isBusy || !session) return;
+    interactMutation.mutate(trimmed);
     setInput('');
   }
 
-  const placeholder = inputDisabled
+  const placeholder = state?.inputDisabled
     ? 'Act 1 complete — Elara awaits (coming soon).'
     : 'Speak to the EtherNet…';
 
@@ -43,7 +43,18 @@ export default function App() {
         <p className="scene-label text-label">Ether Nexus</p>
         <EtherNexusScene />
       </main>
-      <NarrativePanel />
+      {isError ? (
+        <section className="narrative-panel panel panel--ether narrative-panel--status">
+          <p className="narrative-message narrative-message--player">
+            Could not reach the server. Run <code>npm run dev</code> to start the client and API.
+          </p>
+        </section>
+      ) : (
+        <NarrativePanel
+          messages={state?.messages ?? []}
+          isLoading={isPending}
+        />
+      )}
       <footer className="input-bar panel panel--ether">
         <form className="input-form" onSubmit={handleSubmit}>
           <input
@@ -54,9 +65,13 @@ export default function App() {
             onChange={(e) => setInput(e.target.value)}
             aria-label="Message input"
             autoComplete="off"
-            disabled={inputDisabled}
+            disabled={inputDisabled || isBusy || isError}
           />
-          <button type="submit" className="btn btn--nav" disabled={inputDisabled}>
+          <button
+            type="submit"
+            className="btn btn--nav"
+            disabled={inputDisabled || isBusy || isError}
+          >
             Send
           </button>
         </form>
