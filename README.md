@@ -57,11 +57,35 @@ curl -X POST http://localhost:5173/api/sessions
 | `npm run db:down` | Stop Postgres container |
 | `npm run build:shared` | Compile shared game logic |
 | `npm run test:shared` | Unit tests for `applyInteract` |
+| `npm run test:server` | Unit tests for LLM demo (mock provider) |
 | `npm run build:server` | Shared + Prisma generate + Nest build |
 | `npm run prisma:migrate -w server` | Create/apply dev migrations |
 | `npm run prisma:generate -w server` | Regenerate Prisma client |
 
 After editing mock dialogue in `packages/shared`, run `npm run build:shared`.
+
+### LLM demo (AWS Bedrock)
+
+The game still uses keyword mock dialogue by default. To try Bedrock in the **same UI**:
+
+1. In [server/.env.example](server/.env.example), copy vars into `server/.env`:
+   - `DEMO_LLM_ENABLED=true`
+   - `LLM_PROVIDER=bedrock` (or `mock` without AWS)
+   - `AWS_REGION`, `BEDROCK_MODEL_ID` (enable the model in the Bedrock console)
+2. Ensure AWS credentials (`AWS_PROFILE` or default chain).
+3. Create `client/.env.development.local` with `VITE_LLM_DEMO=true` (see [client/.env.example](client/.env.example)).
+4. `npm run dev`, then chat in the browser.
+
+Verify without the UI:
+
+```bash
+curl http://localhost:5173/api/demo/llm-ping
+curl -X POST http://localhost:5173/api/demo/chat \
+  -H 'Content-Type: application/json' \
+  -d '{"text":"Hello from EtherNetic"}'
+```
+
+With `LLM_PROVIDER=mock`, replies are `[mock] Echo: ...` for local testing without AWS.
 
 ### Workspaces
 

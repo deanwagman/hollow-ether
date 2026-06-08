@@ -19,6 +19,12 @@
   color: var(--color-accent);
 }
 
+.narrative-panel__subtitle {
+  margin: var(--space-xs) 0 0;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
 .narrative-panel__log {
   flex: 1;
   min-height: 0;
