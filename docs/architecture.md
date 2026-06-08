@@ -6,7 +6,7 @@ High-level layout for the monorepo. **Canonical game state** lives on the server
 
 | Package | Path | Role |
 |---------|------|------|
-| `@ethernetic/shared` | `packages/shared/` | Types, `mockInteract`, `createInitialSession`, `applyInteract` |
+| `@ethernetic/shared` | `packages/shared/` | Types, rules, `applyInteract`, `mockInteract` |
 | `@ethernetic/client` | `client/` | React, R3F, TanStack Query, UI |
 | `@ethernetic/server` | `server/` | NestJS sessions API, LLM demo, Prisma |
 
@@ -16,7 +16,7 @@ High-level layout for the monorepo. **Canonical game state** lives on the server
 Browser (localhost:5173)
   ├── /, assets              → Vite
   ├── /api/sessions          → Vite proxy → Nest → Prisma → Postgres
-  ├── /api/sessions/:id/interact → same
+  ├── /api/sessions/:id/interact → rules-first → NarrativeService (optional LLM) → Prisma
   ├── /api/demo/chat, /api/demo/llm-ping → Nest → LlmProvider (Bedrock or mock)
   └── TanStack Query cache   → mirrors server GameState in UI (game mode)
 ```
@@ -41,9 +41,36 @@ Browser (localhost:5173)
 | `GET` | `/api/demo/llm-ping` | Bedrock/mock smoke test (requires `DEMO_LLM_ENABLED=true`) |
 | `POST` | `/api/demo/chat` | `{ "text": "...", "history"?: [...] }` → `{ reply, modelId }` |
 
+## Game narrative (Act 1 POC)
+
+Hybrid interact on `/api/sessions/:id/interact`:
+
+```text
+SessionService.interact
+  → resolveInteractRules (shared: flags, scene, scripted beats)
+  → if replaceSpiritLines (Act 1 accept): skip LLM
+  → else if NARRATIVE_PROVIDER=llm: NarrativeService → LlmProvider
+  → else: getSpiritLines (keyword mock)
+  → applyInteractWithSpiritLines → Postgres
+```
+
+Scene-scoped prompts live in [server/src/narrative/prompts/](server/src/narrative/prompts/) (mirrors [lore/prompts/luminia.md](lore/prompts/luminia.md) by scene).
+
+| Env (server) | Purpose |
+|--------------|---------|
+| `NARRATIVE_PROVIDER` | `llm` = Bedrock Luminia on `/interact`; `mock` = keyword dialogue (default, CI-safe) |
+
+**Env matrix:**
+
+| NARRATIVE_PROVIDER | LLM_PROVIDER | Result |
+|--------------------|--------------|--------|
+| `mock` | any | Keyword mock dialogue; no Bedrock |
+| `llm` | `bedrock` | Game uses Bedrock for Luminia |
+| `llm` | `mock` | Game uses echo LLM (tests / no AWS) |
+
 ## LLM demo (dev)
 
-Free-form chat with AWS Bedrock (or a mock echo provider). **Does not** drive game narrative — `/api/sessions/.../interact` still uses `mockInteract` in `@ethernetic/shared`.
+Free-form chat with AWS Bedrock (or a mock echo provider). **Separate** from game sessions — use only when `VITE_LLM_DEMO=true`.
 
 ```text
 VITE_LLM_DEMO=true (client)
@@ -66,5 +93,5 @@ Client flag: `VITE_LLM_DEMO=true` in `client/.env.development.local` (see `clien
 ## Planned (not implemented)
 
 - Session TTL / cleanup of old rows
-- Structured LLM behind `/interact` (flags, scenes, rules)
+- Structured JSON from LLM (flags/scenes proposed by model)
 - Production: Nest serves `client/dist` at `/`

@@ -1,6 +1,6 @@
-import { hasOrientationTag } from './scenes';
-import { mockInteract } from './mockInteract';
-import { OPENING_LINE } from './mock/luminia';
+import { buildInteractMeta, resolveInteractRules } from './interactRules';
+import type { InteractRulesResult } from './interactRules';
+import { buildContext, getSpiritLines, OPENING_LINE } from './mock/luminia';
 import {
   INITIAL_FLAGS,
   type GameState,
@@ -33,34 +33,41 @@ export function createInitialSession(): GameState {
   };
 }
 
-export function applyInteract(state: GameState, playerText: string): GameState | null {
+export function applyInteractWithSpiritLines(
+  state: GameState,
+  playerText: string,
+  spiritLines: string[],
+  rules?: InteractRulesResult,
+): GameState | null {
   if (state.inputDisabled) return null;
 
   const trimmed = playerText.trim();
   if (!trimmed) return null;
 
-  const orientationThisTurn =
-    state.currentScene === 'ch1_awakening' && hasOrientationTag(trimmed);
+  const { meta, awakeningOrientationSeen } = buildInteractMeta(state, trimmed);
+  const resolvedRules =
+    rules ??
+    resolveInteractRules(state.currentScene, trimmed, state.flags, {
+      ...meta,
+      awakeningOrientationSeen,
+    });
 
-  const awakeningOrientationSeen =
-    state.awakeningOrientationSeen || orientationThisTurn;
+  const finalSpiritLines =
+    resolvedRules.replaceSpiritLines ?? [
+      ...spiritLines,
+      ...resolvedRules.appendSpiritLines,
+    ];
 
   const messagesAfterPlayer = [...state.messages, line('player', trimmed)];
-
-  const result = mockInteract(state.currentScene, trimmed, state.flags, {
-    awakeningTurns: state.awakeningTurns,
-    awakeningOrientationSeen,
-  });
-
-  const spiritMessages = result.spiritLines.map((t) => line('luminia', t));
-  const mergedFlags = { ...state.flags, ...result.flagUpdates };
+  const spiritMessages = finalSpiritLines.map((t) => line('luminia', t));
+  const mergedFlags = { ...state.flags, ...resolvedRules.flagUpdates };
   const act1Complete = mergedFlags.act1_invitation_accepted;
 
   return {
     ...state,
     messages: [...messagesAfterPlayer, ...spiritMessages],
     flags: mergedFlags,
-    currentScene: result.nextScene ?? state.currentScene,
+    currentScene: resolvedRules.nextScene ?? state.currentScene,
     inputDisabled: act1Complete,
     awakeningOrientationSeen,
     awakeningTurns:
@@ -68,4 +75,19 @@ export function applyInteract(state: GameState, playerText: string): GameState |
         ? state.awakeningTurns + 1
         : state.awakeningTurns,
   };
+}
+
+export function applyInteract(state: GameState, playerText: string): GameState | null {
+  const trimmed = playerText.trim();
+  if (!trimmed || state.inputDisabled) return null;
+
+  const { meta, awakeningOrientationSeen } = buildInteractMeta(state, trimmed);
+  const ctx = buildContext(trimmed);
+  const spiritLines = getSpiritLines(state.currentScene, trimmed, ctx);
+  const rules = resolveInteractRules(state.currentScene, trimmed, state.flags, {
+    ...meta,
+    awakeningOrientationSeen,
+  });
+
+  return applyInteractWithSpiritLines(state, trimmed, spiritLines, rules);
 }

@@ -3,18 +3,28 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import {
-  applyInteract,
+  applyInteractWithSpiritLines,
+  buildContext,
+  buildInteractMeta,
   createInitialSession,
+  getSpiritLines,
+  resolveInteractRules,
   type GameState,
   type SessionPayload,
 } from '@ethernetic/shared';
 import { randomUUID } from 'crypto';
+import { NarrativeService } from '../narrative/narrative.service';
 import { SessionStore } from './session.store';
 
 @Injectable()
 export class SessionService {
-  constructor(private readonly store: SessionStore) {}
+  constructor(
+    private readonly store: SessionStore,
+    private readonly narrative: NarrativeService,
+    private readonly config: ConfigService,
+  ) {}
 
   async createSession(): Promise<SessionPayload> {
     const sessionId = randomUUID();
@@ -42,12 +52,35 @@ export class SessionService {
       throw new BadRequestException('Message text is required');
     }
 
-    const next = applyInteract(state, trimmed);
+    const next = await this.applyPlayerInteract(state, trimmed);
     if (next === null) {
       return state;
     }
 
     await this.store.set(sessionId, next);
     return next;
+  }
+
+  async applyPlayerInteract(
+    state: GameState,
+    trimmed: string,
+  ): Promise<GameState | null> {
+    const { meta, awakeningOrientationSeen } = buildInteractMeta(state, trimmed);
+    const rules = resolveInteractRules(state.currentScene, trimmed, state.flags, {
+      ...meta,
+      awakeningOrientationSeen,
+    });
+
+    let spiritLines: string[];
+    if (rules.replaceSpiritLines) {
+      spiritLines = rules.replaceSpiritLines;
+    } else if (this.config.get<string>('NARRATIVE_PROVIDER') === 'llm') {
+      spiritLines = await this.narrative.generateSpiritLines(state, trimmed);
+    } else {
+      const ctx = buildContext(trimmed);
+      spiritLines = getSpiritLines(state.currentScene, trimmed, ctx);
+    }
+
+    return applyInteractWithSpiritLines(state, trimmed, spiritLines, rules);
   }
 }

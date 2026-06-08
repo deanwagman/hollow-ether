@@ -57,16 +57,45 @@ curl -X POST http://localhost:5173/api/sessions
 | `npm run db:down` | Stop Postgres container |
 | `npm run build:shared` | Compile shared game logic |
 | `npm run test:shared` | Unit tests for `applyInteract` |
-| `npm run test:server` | Unit tests for LLM demo (mock provider) |
+| `npm run test:server` | Unit tests for LLM demo + narrative + session |
 | `npm run build:server` | Shared + Prisma generate + Nest build |
 | `npm run prisma:migrate -w server` | Create/apply dev migrations |
 | `npm run prisma:generate -w server` | Regenerate Prisma client |
 
 After editing mock dialogue in `packages/shared`, run `npm run build:shared`.
 
+### Act 1 narrative POC (game mode)
+
+Luminia on `/api/sessions/.../interact` with **rules in code** and **optional Bedrock dialogue**.
+
+**Server** (`server/.env`):
+
+```bash
+NARRATIVE_PROVIDER=llm    # or mock (default, no AWS)
+LLM_PROVIDER=bedrock
+AWS_REGION=us-east-2
+BEDROCK_MODEL_ID=us.amazon.nova-lite-v1:0
+# + AWS credentials
+```
+
+**Client:** `VITE_LLM_DEMO=false` in `client/.env.development.local` (game uses sessions, not demo chat).
+
+**Manual checklist:**
+
+| Step | Action | Expected |
+|------|--------|----------|
+| 1 | New game | Luminia opening line |
+| 2 | `"who am I?"` | Natural reply; still awakening |
+| 3 | Any second message (e.g. `"tell me more"`) | Scene → invitation + transition beats |
+| 4 | `"I will listen for Elara"` | Act 1 closing; input disabled |
+| 5 | Refresh | Session + history resume |
+| 6 | `NARRATIVE_PROVIDER=mock`, restart | Keyword mock; same scene rules |
+
+Step 3 needs **≥2 turns** and orientation from step 2.
+
 ### LLM demo (AWS Bedrock)
 
-The game still uses keyword mock dialogue by default. To try Bedrock in the **same UI**:
+Separate free-form chat when `VITE_LLM_DEMO=true` (see [client/.env.example](client/.env.example)):
 
 1. In [server/.env.example](server/.env.example), copy vars into `server/.env`:
    - `DEMO_LLM_ENABLED=true`
