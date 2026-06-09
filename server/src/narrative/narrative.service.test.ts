@@ -73,4 +73,11 @@ describe('scene-scoped prompts', () => {
     expect(prompt).toContain('Scene: Invitation');
     expect(prompt).not.toContain('Scene: Awakening');
   });
+
+  it('includes invitation commit content for commit scene', () => {
+    const prompt = getPromptTextForScene('ch1_invitation_commit');
+    expect(prompt).toContain('ch1_invitation_commit');
+    expect(prompt).toContain('Invitation commit');
+    expect(prompt).not.toContain('Scene: Awakening');
+  });
 });

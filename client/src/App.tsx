@@ -1,4 +1,5 @@
 import { FormEvent, useEffect, useState } from 'react';
+import { SCENES } from '@ethernetic/shared';
 import NarrativePanel from './components/NarrativePanel';
 import { useDemoLlmChat } from './game/useDemoLlmChat';
 import { useGameSession, useInteract } from './game/useGameSession';
@@ -88,6 +89,7 @@ function GameApp() {
   const state = session?.state;
   const inputDisabled = state?.inputDisabled ?? true;
   const isBusy = isPending || interactMutation.isPending;
+  const sceneLabel = state ? SCENES[state.currentScene]?.label ?? 'Ether Nexus' : 'Ether Nexus';
 
   useEffect(() => {
     if (!import.meta.env.DEV) return;
@@ -115,7 +117,7 @@ function GameApp() {
   return (
     <div className="app">
       <main className="viewport">
-        <p className="scene-label text-label">Ether Nexus</p>
+        <p className="scene-label text-label">{sceneLabel}</p>
         <EtherNexusScene />
       </main>
       {isError ? (
@@ -127,7 +129,8 @@ function GameApp() {
       ) : (
         <NarrativePanel
           messages={state?.messages ?? []}
-          isLoading={isPending}
+          isLoading={isPending && !(state?.messages.length ?? 0)}
+          isListening={interactMutation.isPending}
         />
       )}
       <footer className="input-bar panel panel--ether">

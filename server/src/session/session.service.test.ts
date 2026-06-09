@@ -29,24 +29,30 @@ function createSessionService(options: {
   return { service, llm: options.llm };
 }
 
+async function reachInvitationCommit(): Promise<GameState> {
+  let state = createInitialSession();
+  state = applyInteract(state, 'hello')!;
+  state = applyInteract(state, 'who am I')!;
+  state = applyInteract(state, 'tell me about Elara')!;
+  return state;
+}
+
 describe('SessionService rules-first interact', () => {
-  it('does not call LLM when accept phrase triggers replaceSpiritLines', async () => {
-    let state = createInitialSession();
-    state = applyInteract(state, 'hello')!;
-    state = applyInteract(state, 'who am I')!;
+  it('does not call LLM when accept phrase triggers replaceSpiritLines in commit', async () => {
+    const state = await reachInvitationCommit();
 
     const chat = vi.fn().mockResolvedValue({
       content: 'LLM should not appear',
       modelId: 'mock',
     });
-    const { service, llm } = createSessionService({
+    const { service } = createSessionService({
       narrativeProvider: 'llm',
       llm: { chat, ping: vi.fn() },
     });
 
     const next = await service.applyPlayerInteract(
       state,
-      'I will listen for Elara',
+      "I'm ready to listen for Elara",
     );
 
     expect(chat).not.toHaveBeenCalled();

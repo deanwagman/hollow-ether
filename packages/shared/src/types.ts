@@ -1,4 +1,7 @@
-export type SceneId = 'ch1_awakening' | 'ch1_invitation';
+export type SceneId =
+  | 'ch1_awakening'
+  | 'ch1_invitation'
+  | 'ch1_invitation_commit';
 
 export type SpiritId = 'luminia';
 
@@ -27,6 +30,7 @@ export const INITIAL_FLAGS: GameFlags = {
 export type InteractMeta = {
   awakeningTurns: number;
   awakeningOrientationSeen: boolean;
+  invitationTurns: number;
 };
 
 export type InteractResult = {
@@ -42,6 +46,7 @@ export type GameState = {
   messages: NarrativeLine[];
   awakeningTurns: number;
   awakeningOrientationSeen: boolean;
+  invitationTurns: number;
   inputDisabled: boolean;
 };
 

@@ -3,9 +3,20 @@ import { join } from 'path';
 import type { GameFlags, GameState, SceneId } from '@ethernetic/shared';
 
 const PROMPT_SUFFIX =
-  'Reply as Luminia in 1–2 short paragraphs. No JSON. Do not advance the scene or mention beats from other scenes.';
+  'Reply as Luminia in one short paragraph (2–3 sentences). No JSON. Do not advance the scene or mention beats from other scenes. Do not repeat your previous reply.';
 
 const promptCache: Partial<Record<string, string>> = {};
+
+function scenePromptFilename(sceneId: SceneId): string {
+  switch (sceneId) {
+    case 'ch1_awakening':
+      return 'luminia-awakening.md';
+    case 'ch1_invitation':
+      return 'luminia-invitation.md';
+    case 'ch1_invitation_commit':
+      return 'luminia-invitation-commit.md';
+  }
+}
 
 function promptsDir(): string {
   const candidates = [
@@ -36,10 +47,7 @@ function readPrompt(filename: string): string {
 }
 
 export function buildLuminiaSystemPrompt(sceneId: SceneId, flags: GameFlags): string {
-  const scenePrompt =
-    sceneId === 'ch1_awakening'
-      ? readPrompt('luminia-awakening.md')
-      : readPrompt('luminia-invitation.md');
+  const scenePrompt = readPrompt(scenePromptFilename(sceneId));
 
   const flagSummary = [
     `met_luminia=${flags.met_luminia}`,

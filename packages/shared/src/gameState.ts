@@ -22,6 +22,7 @@ const baseState = (): Omit<GameState, 'messages' | 'flags'> => ({
   activeSpirit: 'luminia' as SpiritId,
   awakeningTurns: 0,
   awakeningOrientationSeen: false,
+  invitationTurns: 0,
   inputDisabled: false,
 });
 
@@ -74,6 +75,11 @@ export function applyInteractWithSpiritLines(
       state.currentScene === 'ch1_awakening'
         ? state.awakeningTurns + 1
         : state.awakeningTurns,
+    invitationTurns:
+      state.currentScene === 'ch1_invitation' ||
+      state.currentScene === 'ch1_invitation_commit'
+        ? state.invitationTurns + 1
+        : state.invitationTurns,
   };
 }
 

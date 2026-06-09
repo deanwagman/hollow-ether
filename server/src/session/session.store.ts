@@ -3,6 +3,13 @@ import { Prisma } from '@prisma/client';
 import type { GameState } from '@ethernetic/shared';
 import { PrismaService } from '../prisma/prisma.service';
 
+function normalizeGameState(state: GameState): GameState {
+  return {
+    ...state,
+    invitationTurns: state.invitationTurns ?? 0,
+  };
+}
+
 @Injectable()
 export class SessionStore {
   constructor(private readonly prisma: PrismaService) {}
@@ -19,7 +26,7 @@ export class SessionStore {
   async get(id: string): Promise<GameState | undefined> {
     const row = await this.prisma.session.findUnique({ where: { id } });
     if (!row) return undefined;
-    return row.state as GameState;
+    return normalizeGameState(row.state as GameState);
   }
 
   async set(id: string, state: GameState): Promise<void> {

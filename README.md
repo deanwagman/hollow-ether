@@ -80,18 +80,21 @@ BEDROCK_MODEL_ID=us.amazon.nova-lite-v1:0
 
 **Client:** `VITE_LLM_DEMO=false` in `client/.env.development.local` (game uses sessions, not demo chat).
 
-**Manual checklist:**
+**Manual checklist** (Act 1 Luminia demo — 3 scenes, no Elara on stage):
 
 | Step | Action | Expected |
 |------|--------|----------|
 | 1 | New game | Luminia opening line |
 | 2 | `"who am I?"` | Natural reply; still awakening |
 | 3 | Any second message (e.g. `"tell me more"`) | Scene → invitation + transition beats |
-| 4 | `"I will listen for Elara"` | Act 1 closing; input disabled |
-| 5 | Refresh | Session + history resume |
-| 6 | `NARRATIVE_PROVIDER=mock`, restart | Keyword mock; same scene rules |
+| 4 | Ask about Elara, courts, or send another message | Scene → invitation commit |
+| 5 | Push back, then `"I'm ready to listen for Elara"` | Act 1 closing; input disabled |
+| 6 | Refresh | Session + history resume |
+| 7 | `NARRATIVE_PROVIDER=mock`, restart | Keyword mock; same scene rules |
 
-Step 3 needs **≥2 turns** and orientation from step 2.
+Step 3 needs **≥2 turns** and orientation from step 2. If stuck in invitation, ask about Elara/courts or send one more message.
+
+After updating game state shape, use **New game** for existing browser sessions.
 
 ### LLM demo (AWS Bedrock)
 

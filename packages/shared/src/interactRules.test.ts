@@ -6,6 +6,7 @@ import { INITIAL_FLAGS } from './types';
 const baseMeta = {
   awakeningTurns: 0,
   awakeningOrientationSeen: false,
+  invitationTurns: 0,
 };
 
 describe('resolveInteractRules', () => {
@@ -25,7 +26,7 @@ describe('resolveInteractRules', () => {
       'ch1_awakening',
       'tell me more',
       INITIAL_FLAGS,
-      { awakeningTurns: 1, awakeningOrientationSeen: true },
+      { awakeningTurns: 1, awakeningOrientationSeen: true, invitationTurns: 0 },
     );
     expect(rules.nextScene).toBe('ch1_invitation');
     expect(rules.appendSpiritLines.length).toBeGreaterThan(0);
@@ -41,12 +42,41 @@ describe('resolveInteractRules', () => {
     expect(rules.flagUpdates.luminia_warned_door).toBe(true);
   });
 
-  it('sets accept flag and replaceSpiritLines on accept phrase', () => {
+  it('does not accept in invitation scene', () => {
     const rules = resolveInteractRules(
       'ch1_invitation',
-      'I will listen for Elara',
+      "I'm ready to listen for Elara",
+      INITIAL_FLAGS,
+      { ...baseMeta, invitationTurns: 1 },
+    );
+    expect(rules.flagUpdates.act1_invitation_accepted).toBeUndefined();
+    expect(rules.replaceSpiritLines).toBeUndefined();
+  });
+
+  it('enters invitation commit after topic or second invitation turn', () => {
+    const withTopic = resolveInteractRules(
+      'ch1_invitation',
+      'tell me about Elara',
       INITIAL_FLAGS,
       baseMeta,
+    );
+    expect(withTopic.nextScene).toBe('ch1_invitation_commit');
+
+    const secondTurn = resolveInteractRules(
+      'ch1_invitation',
+      'still thinking',
+      INITIAL_FLAGS,
+      { ...baseMeta, invitationTurns: 1 },
+    );
+    expect(secondTurn.nextScene).toBe('ch1_invitation_commit');
+  });
+
+  it('sets accept flag and replaceSpiritLines only in commit scene', () => {
+    const rules = resolveInteractRules(
+      'ch1_invitation_commit',
+      "I'm ready to listen for Elara",
+      INITIAL_FLAGS,
+      { ...baseMeta, invitationTurns: 1 },
     );
     expect(rules.flagUpdates.act1_invitation_accepted).toBe(true);
     expect(rules.replaceSpiritLines).toEqual([ACT1_CLOSING_LINE]);

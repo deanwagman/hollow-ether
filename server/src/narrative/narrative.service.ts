@@ -27,12 +27,19 @@ export class NarrativeService {
       const system = buildLuminiaSystemPrompt(state.currentScene, state.flags);
       const openingLine =
         state.messages[0]?.speaker === 'luminia' ? state.messages[0].text : undefined;
-      const systemWithOpening = openingLine
-        ? `${system}\n\nYou already opened the scene with: "${openingLine}"`
-        : system;
+      const lastLuminiaLine = [...state.messages]
+        .reverse()
+        .find((message) => message.speaker === 'luminia')?.text;
+      let systemWithContext = system;
+      if (openingLine) {
+        systemWithContext += `\n\nYou already opened the scene with: "${openingLine}"`;
+      }
+      if (lastLuminiaLine) {
+        systemWithContext += `\n\nYour last reply was: "${lastLuminiaLine}" — do not repeat it.`;
+      }
       const history = buildNarrativeHistory(state);
       const messages: ChatMessage[] = [
-        { role: 'system', content: systemWithOpening },
+        { role: 'system', content: systemWithContext },
         ...history,
         { role: 'user', content: playerText },
       ];

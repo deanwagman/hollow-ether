@@ -1,6 +1,7 @@
 import {
   asksAboutDoor,
   canCompleteAct1,
+  canEnterInvitationCommit,
   canLeaveAwakening,
   earnsLuminiaTrust,
   hasOrientationTag,
@@ -31,6 +32,7 @@ export function buildInteractMeta(state: GameState, playerText: string) {
     meta: {
       awakeningTurns: state.awakeningTurns,
       awakeningOrientationSeen,
+      invitationTurns: state.invitationTurns,
     },
     awakeningOrientationSeen,
   };
@@ -39,7 +41,7 @@ export function buildInteractMeta(state: GameState, playerText: string) {
 export function resolveInteractRules(
   sceneId: SceneId,
   playerText: string,
-  _flags: GameFlags,
+  flags: GameFlags,
   meta: InteractMeta,
 ): InteractRulesResult {
   const ctx = buildContext(playerText);
@@ -51,6 +53,7 @@ export function resolveInteractRules(
   const turnsIncludingCurrent = meta.awakeningTurns + 1;
   const orientationSeen =
     meta.awakeningOrientationSeen || ctx.orientationThisTurn;
+  const invitationTurnsIncludingCurrent = meta.invitationTurns + 1;
 
   if (earnsLuminiaTrust(playerText)) {
     flagUpdates.luminia_trust = true;
@@ -66,7 +69,21 @@ export function resolveInteractRules(
       flagUpdates.luminia_warned_door = true;
     }
 
-    if (canCompleteAct1(playerText)) {
+    if (
+      canEnterInvitationCommit(
+        invitationTurnsIncludingCurrent,
+        { ...flags, ...flagUpdates },
+        playerText,
+      )
+    ) {
+      nextScene = 'ch1_invitation_commit';
+    }
+  } else if (sceneId === 'ch1_invitation_commit') {
+    if (asksAboutDoor(playerText)) {
+      flagUpdates.luminia_warned_door = true;
+    }
+
+    if (canCompleteAct1(sceneId, playerText)) {
       flagUpdates.act1_invitation_accepted = true;
       replaceSpiritLines = [ACT1_CLOSING_LINE];
     }

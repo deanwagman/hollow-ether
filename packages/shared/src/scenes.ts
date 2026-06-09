@@ -1,4 +1,4 @@
-import type { SceneId } from './types';
+import type { GameFlags, SceneId } from './types';
 
 export const ORIENTATION_TAGS = ['who', 'where', 'what', 'listen', 'witness'] as const;
 
@@ -18,6 +18,11 @@ export const SCENES: Record<SceneId, SceneMeta> = {
   },
   ch1_invitation: {
     id: 'ch1_invitation',
+    label: 'Invitation',
+    activeSpirit: 'luminia',
+  },
+  ch1_invitation_commit: {
+    id: 'ch1_invitation_commit',
     label: 'Invitation',
     activeSpirit: 'luminia',
   },
@@ -43,10 +48,51 @@ export function canLeaveAwakening(
   return turnsIncludingCurrent >= AWAKENING_MIN_TURNS && awakeningOrientationSeen;
 }
 
-const ACCEPT_TAGS = ['elara', 'find her', 'yes', 'listen for', 'i will listen', 'i will find'];
+const ACCEPT_TAGS = [
+  'elara',
+  'find her',
+  'yes',
+  'listen for',
+  'i will listen',
+  'i will find',
+  "i'm ready",
+  'i will go',
+  'lead me',
+  'take me',
+  'ready to listen',
+  "let's go",
+];
 
-export function canCompleteAct1(text: string): boolean {
+export function canCompleteAct1(sceneId: SceneId, text: string): boolean {
+  if (sceneId !== 'ch1_invitation_commit') return false;
   return hasAnyTag(text, ACCEPT_TAGS);
+}
+
+const INVITATION_TOPIC_TAGS = [
+  'elara',
+  'court',
+  'courts',
+  'door',
+  'portal',
+  'reflection',
+  'tide',
+];
+
+export function asksAboutInvitationTopic(text: string): boolean {
+  return hasAnyTag(text, INVITATION_TOPIC_TAGS);
+}
+
+export function canEnterInvitationCommit(
+  invitationTurnsIncludingCurrent: number,
+  flags: GameFlags,
+  playerText: string,
+): boolean {
+  if (invitationTurnsIncludingCurrent >= 2) return true;
+  if (invitationTurnsIncludingCurrent >= 1) {
+    if (flags.luminia_trust) return true;
+    if (asksAboutInvitationTopic(playerText)) return true;
+  }
+  return false;
 }
 
 const RUSH_TAGS = ['hurry', 'seize', 'now'];

@@ -24,6 +24,7 @@ function MessageRow({
 type NarrativePanelProps = {
   messages: NarrativeLine[];
   isLoading?: boolean;
+  isListening?: boolean;
   spiritLabel?: string;
   subtitle?: string;
 };
@@ -31,6 +32,7 @@ type NarrativePanelProps = {
 export default function NarrativePanel({
   messages,
   isLoading,
+  isListening,
   spiritLabel = 'Luminia',
   subtitle,
 }: NarrativePanelProps) {
@@ -59,6 +61,9 @@ export default function NarrativePanel({
             spiritLabel={spiritLabel}
           />
         ))}
+        {isListening ? (
+          <p className="narrative-message narrative-message--player">Listening…</p>
+        ) : null}
         <div ref={logEndRef} />
       </div>
     </section>

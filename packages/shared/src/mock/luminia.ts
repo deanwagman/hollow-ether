@@ -59,7 +59,11 @@ export function getSpiritLines(
     return getAwakeningLines(ctx);
   }
 
-  return getInvitationLines(ctx, text);
+  if (sceneId === 'ch1_invitation') {
+    return getInvitationLines(ctx, text);
+  }
+
+  return getInvitationCommitLines(ctx, text);
 }
 
 function getAwakeningLines(ctx: LuminiaContext): string[] {
@@ -82,7 +86,7 @@ function getAwakeningLines(ctx: LuminiaContext): string[] {
   if (tags.includes('what') || tags.includes('net')) {
     return [
       'The EtherNet is a weave of courts—Tide, Gale, Root, and Ether.',
-      'Something in the weave argues tonight. You will hear her name if you listen.',
+      'Something in the weave argues tonight. Listen before you walk toward it.',
     ];
   }
 
@@ -109,7 +113,7 @@ function getAwakeningLines(ctx: LuminiaContext): string[] {
 
   if (tags.includes('elara')) {
     return [
-      'Elara’s thread pulls at Tide—but you have not been invited to her shore yet.',
+      'A thread pulls at Tide—but you have not been invited to that shore yet.',
       'First, learn what it means to listen here.',
     ];
   }
@@ -158,14 +162,50 @@ function getInvitationLines(ctx: LuminiaContext, text: string): string[] {
     normalized.includes('i will')
   ) {
     return [
-      'Then go. Listen for Elara on the Tide path.',
-      'Return to me when you have heard her—not when you have decided for her.',
+      'You sound willing—but I need your explicit commitment before the path opens.',
+      'Tell me plainly that you will listen for Elara on the Tide path.',
     ];
   }
 
   return [
     'The invitation stands: find Elara at the reflection pool.',
-    'Say that you will listen—and the path will open.',
+    'Ask about her, the courts, or the door—and when you are ready, say so plainly.',
+  ];
+}
+
+function getInvitationCommitLines(ctx: LuminiaContext, text: string): string[] {
+  const normalized = text.trim().toLowerCase();
+  const { tags } = ctx;
+
+  if (
+    normalized.includes("don't") ||
+    normalized.includes('do not') ||
+    normalized.includes('refuse') ||
+    normalized.includes('no ')
+  ) {
+    return [
+      'I hear your hesitation. The net does not need a hero—only a Witness who listens.',
+      'When you are ready, say that you will walk to Elara without demanding guilt.',
+    ];
+  }
+
+  if (tags.includes('door') || normalized.includes('portal') || normalized.includes('future')) {
+    return [
+      'The door on the horizon must not open early. Walk to Elara first.',
+      'When you commit, the Tide path will open—not the door.',
+    ];
+  }
+
+  if (tags.includes('elara') || tags.includes('court')) {
+    return [
+      'Elara waits at the Tide reflection pool—alone, and afraid of the net’s voice.',
+      'Will you go and listen before you judge?',
+    ];
+  }
+
+  return [
+    'This is the threshold. Say that you will listen for Elara—and the path opens.',
+    'I will not choose for you.',
   ];
 }
 

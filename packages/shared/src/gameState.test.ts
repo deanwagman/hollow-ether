@@ -14,6 +14,7 @@ describe('createInitialSession', () => {
     expect(state.messages[0].speaker).toBe('luminia');
     expect(state.flags.met_luminia).toBe(true);
     expect(state.currentScene).toBe('ch1_awakening');
+    expect(state.invitationTurns).toBe(0);
   });
 });
 
@@ -35,11 +36,22 @@ describe('applyInteract', () => {
     expect(state.awakeningTurns).toBe(2);
   });
 
-  it('completes act 1 on invitation accept', () => {
+  it('does not complete act 1 on accept in invitation scene', () => {
     let state = createInitialSession();
     state = applyInteract(state, 'hello')!;
     state = applyInteract(state, 'who am I')!;
-    state = applyInteract(state, 'I will listen for Elara')!;
+    state = applyInteract(state, "I'm ready to listen for Elara")!;
+    expect(state.flags.act1_invitation_accepted).toBe(false);
+    expect(state.inputDisabled).toBe(false);
+  });
+
+  it('completes act 1 on accept in invitation commit', () => {
+    let state = createInitialSession();
+    state = applyInteract(state, 'hello')!;
+    state = applyInteract(state, 'who am I')!;
+    state = applyInteract(state, 'tell me about Elara')!;
+    expect(state.currentScene).toBe('ch1_invitation_commit');
+    state = applyInteract(state, "I'm ready to listen for Elara")!;
     expect(state.flags.act1_invitation_accepted).toBe(true);
     expect(state.inputDisabled).toBe(true);
   });
@@ -56,24 +68,25 @@ describe('applyInteractWithSpiritLines', () => {
     expect(luminiaTexts).toContain('LLM line');
   });
 
-  it('uses replaceSpiritLines from precomputed rules on accept', () => {
+  it('uses replaceSpiritLines from precomputed rules on accept in commit', () => {
     let state = createInitialSession();
     state = applyInteract(state, 'hello')!;
     state = applyInteract(state, 'who am I')!;
-    state = {
-      ...state,
-      currentScene: 'ch1_invitation',
-    };
+    state = applyInteract(state, 'tell me about Elara')!;
 
     const rules = resolveInteractRules(
-      'ch1_invitation',
-      'I will listen for Elara',
+      'ch1_invitation_commit',
+      "I'm ready to listen for Elara",
       state.flags,
-      { awakeningTurns: 2, awakeningOrientationSeen: true },
+      {
+        awakeningTurns: 2,
+        awakeningOrientationSeen: true,
+        invitationTurns: 2,
+      },
     );
     const next = applyInteractWithSpiritLines(
       state,
-      'I will listen for Elara',
+      "I'm ready to listen for Elara",
       ['This LLM line should be ignored'],
       rules,
     );

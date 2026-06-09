@@ -56,6 +56,8 @@ SessionService.interact
 
 Scene-scoped prompts live in [server/src/narrative/prompts/](server/src/narrative/prompts/) (mirrors [lore/prompts/luminia.md](lore/prompts/luminia.md) by scene).
 
+**Act 1 demo arc (Luminia only):** `ch1_awakening` → `ch1_invitation` → `ch1_invitation_commit` → accept closes Act 1. Elara may be named in invitation/commit prompts but does not speak on stage.
+
 | Env (server) | Purpose |
 |--------------|---------|
 | `NARRATIVE_PROVIDER` | `llm` = Bedrock Luminia on `/interact`; `mock` = keyword dialogue (default, CI-safe) |
