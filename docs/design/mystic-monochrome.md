@@ -27,9 +27,11 @@ Avoid mid-tone greys that soften contrast.
 | Token | Hex | Use |
 |-------|-----|-----|
 | `accent` | `#6D7BA6` | Glows, borders, status, focus |
+| `accent-ether` | `#7B6BA6` | Court of Ether — violet lean (Luminia, nexus) |
 | `accent-muted` | `#AFAFAF` | Secondary glow, silver highlights |
+| `highlight-cyan` | `#5ECED4` | Ripples / accept beat only (≤10% of screen) |
 
-Maintain monochrome feel: one ethereal accent family, not full colour illustrations.
+Maintain monochrome feel: one ethereal accent family per court. Ether Nexus may use violet lean + rare cyan highlights; not full colour illustrations.
 
 ### Surfaces
 
@@ -90,6 +92,8 @@ Maintain monochrome feel: one ethereal accent family, not full colour illustrati
 
 Canvas colours mirror CSS via `client/src/theme/tokens.ts`:
 
-- Background: navy → black gradient feel (`#0C1440` / `#0A0A0A`)
-- Accent light: `#6D7BA6`
+- Background: navy `#0C1440`
+- Accent light: `#6D7BA6` / Ether `#7B6BA6`
 - Hero mesh: silver/pewter (`#AFAFAF`), not gold
+
+Location presets: [scene-presets.md](scene-presets.md). UI dialogue: **Suspended Narrative Layer** — [visual-grammar.md](visual-grammar.md).

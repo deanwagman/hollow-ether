@@ -7,11 +7,14 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "vitest run"
   },
   "dependencies": {
     "@ethernetic/shared": "*",
+    "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.1.2",
+    "@react-three/postprocessing": "^3.0.4",
     "@tanstack/react-query": "^5.90.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
@@ -22,6 +25,7 @@
     "@types/react-dom": "^19.1.5",
     "@types/three": "^0.177.0",
     "@vitejs/plugin-react": "^4.5.1",
-    "vite": "^6.3.5"
+    "vite": "^6.3.5",
+    "vitest": "^3.2.6"
   }
 }

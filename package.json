@@ -19,6 +19,7 @@
     "db:up": "docker compose up -d postgres",
     "db:down": "docker compose down",
     "test:shared": "npm run test -w @ethernetic/shared",
+    "test:client": "npm run test -w @ethernetic/client",
     "test:server": "npm run test -w server",
     "lint": "npm run lint -w client"
   },

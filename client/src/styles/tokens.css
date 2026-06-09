@@ -11,7 +11,9 @@
 
   /* Accent */
   --color-accent: #6d7ba6;
+  --color-accent-ether: #7b6ba6;
   --color-accent-muted: #afafaf;
+  --color-highlight-cyan: #5eced4;
 
   /* Surfaces */
   --color-panel-bg: rgba(0, 0, 0, 0.6);
@@ -45,13 +47,16 @@
   --space-xl: 1.5rem;
 
   /* Layout */
-  --input-bar-height: 4rem;
+  --input-bar-height: 3.25rem;
   --radius-sm: 2px;
-  --content-max-width: 48rem;
+  --layout-stage-height: 20vh;
+  --layout-content-width: min(80vw, 75rem);
+  --snl-fade-height: 3rem;
 
   /* Motion */
   --motion-slow: 8s;
   --motion-medium: 400ms;
   --motion-fast: 200ms;
+  --motion-turn: 600ms;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }

@@ -9,16 +9,16 @@ export const colors = {
   textSecondary: '#e0e0e0',
   textMuted: '#a8adb8',
   accent: '#6d7ba6',
+  accentEther: '#7b6ba6',
   accentMuted: '#afafaf',
+  highlightCyan: '#5eced4',
   background: '#0c1440',
 } as const;
 
-/** Single depth field — uniform distant stars (no near/foreground layer) */
 export const particles = {
   count: 280,
   size: 0.024,
   opacity: 0.48,
-  /** Slow ether drift (world units, seconds) */
   driftSpeed: 0.18,
   driftAmount: 0.065,
 } as const;

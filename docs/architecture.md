@@ -7,8 +7,8 @@ High-level layout for the monorepo. **Canonical game state** lives on the server
 | Package | Path | Role |
 |---------|------|------|
 | `@ethernetic/shared` | `packages/shared/` | Types, rules, `applyInteract`, `mockInteract` |
-| `@ethernetic/client` | `client/` | React, R3F, TanStack Query, UI |
-| `@ethernetic/server` | `server/` | NestJS sessions API, LLM demo, Prisma |
+| `@ethernetic/client` | `client/` | React, R3F, Suspended Narrative Layer, TanStack Query |
+| `@ethernetic/server` | `server/` | NestJS sessions API, narrative LLM, Prisma |
 
 ## Development request flow
 
@@ -17,8 +17,7 @@ Browser (localhost:5173)
   ├── /, assets              → Vite
   ├── /api/sessions          → Vite proxy → Nest → Prisma → Postgres
   ├── /api/sessions/:id/interact → rules-first → NarrativeService (optional LLM) → Prisma
-  ├── /api/demo/chat, /api/demo/llm-ping → Nest → LlmProvider (Bedrock or mock)
-  └── TanStack Query cache   → mirrors server GameState in UI (game mode)
+  └── TanStack Query cache   → mirrors server GameState in UI
 ```
 
 `npm run dev` starts Vite and Nest. Postgres runs via `npm run db:up` (Docker Compose).
@@ -38,10 +37,9 @@ Browser (localhost:5173)
 | `POST` | `/api/sessions` | Create session + opening state |
 | `GET` | `/api/sessions/:id` | Get state snapshot |
 | `POST` | `/api/sessions/:id/interact` | `{ "text": "..." }` → updated state |
-| `GET` | `/api/demo/llm-ping` | Bedrock/mock smoke test (requires `DEMO_LLM_ENABLED=true`) |
-| `POST` | `/api/demo/chat` | `{ "text": "...", "history"?: [...] }` → `{ reply, modelId }` |
+| `GET` | `/api/health` | API health check |
 
-## Game narrative (Act 1 POC)
+## Game narrative (Act 1)
 
 Hybrid interact on `/api/sessions/:id/interact`:
 
@@ -54,43 +52,26 @@ SessionService.interact
   → applyInteractWithSpiritLines → Postgres
 ```
 
-Scene-scoped prompts live in [server/src/narrative/prompts/](server/src/narrative/prompts/) (mirrors [lore/prompts/luminia.md](lore/prompts/luminia.md) by scene).
+Scene-scoped prompts: [server/src/narrative/prompts/](server/src/narrative/prompts/).
 
-**Act 1 demo arc (Luminia only):** `ch1_awakening` → `ch1_invitation` → `ch1_invitation_commit` → accept closes Act 1. Elara may be named in invitation/commit prompts but does not speak on stage.
+**Act 1 arc:** `ch1_awakening` → `ch1_invitation` → `ch1_invitation_commit` → accept closes Act 1.
+
+Visual system: [docs/design/visual-grammar.md](design/visual-grammar.md), presets in `client/src/theme/presets.ts`.
 
 | Env (server) | Purpose |
 |--------------|---------|
 | `NARRATIVE_PROVIDER` | `llm` = Bedrock Luminia on `/interact`; `mock` = keyword dialogue (default, CI-safe) |
+| `LLM_PROVIDER` | `bedrock` or `mock` |
+| `LLM_MAX_TOKENS` | Max tokens per LLM reply (default 512) |
+| `AWS_REGION`, `BEDROCK_MODEL_ID` | Bedrock when `LLM_PROVIDER=bedrock` |
 
 **Env matrix:**
 
 | NARRATIVE_PROVIDER | LLM_PROVIDER | Result |
 |--------------------|--------------|--------|
 | `mock` | any | Keyword mock dialogue; no Bedrock |
-| `llm` | `bedrock` | Game uses Bedrock for Luminia |
-| `llm` | `mock` | Game uses echo LLM (tests / no AWS) |
-
-## LLM demo (dev)
-
-Free-form chat with AWS Bedrock (or a mock echo provider). **Separate** from game sessions — use only when `VITE_LLM_DEMO=true`.
-
-```text
-VITE_LLM_DEMO=true (client)
-  → same Ether Nexus UI, POST /api/demo/chat
-  → DemoService → LlmProvider
-       ├── bedrock: BedrockRuntime Converse (AWS_REGION, BEDROCK_MODEL_ID)
-       └── mock: deterministic echo (CI / no AWS)
-```
-
-| Env (server) | Purpose |
-|--------------|---------|
-| `DEMO_LLM_ENABLED` | `true` exposes demo routes; otherwise 404 |
-| `LLM_PROVIDER` | `bedrock` or `mock` |
-| `AWS_REGION` | Bedrock region |
-| `BEDROCK_MODEL_ID` | Model ID enabled in your account |
-| `DEMO_LLM_MAX_TOKENS` | Max tokens per reply (default 512) |
-
-Client flag: `VITE_LLM_DEMO=true` in `client/.env.development.local` (see `client/.env.example`).
+| `llm` | `bedrock` | Bedrock for Luminia on `/interact` |
+| `llm` | `mock` | Echo LLM (tests / no AWS) |
 
 ## Planned (not implemented)
 

@@ -3,15 +3,7 @@
   flex-direction: column;
   height: 100%;
   width: 100%;
-  /* Canvas owns sky colour; avoid a second gradient behind the WebGL layer */
   background: var(--color-base-black);
-}
-
-.viewport {
-  flex: 1;
-  min-height: 0;
-  position: relative;
-  background: var(--color-base-navy);
 }
 
 .input-bar {
@@ -25,7 +17,7 @@
   display: flex;
   gap: var(--space-sm);
   height: 100%;
-  max-width: var(--content-max-width);
+  max-width: var(--layout-content-width);
   margin: 0 auto;
   align-items: center;
 }

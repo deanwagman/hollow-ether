@@ -19,7 +19,7 @@ export class BedrockLlmProvider implements LlmProvider {
       'BEDROCK_MODEL_ID',
       'us.amazon.nova-lite-v1:0',
     );
-    this.defaultMaxTokens = Number(this.config.get('DEMO_LLM_MAX_TOKENS', '512'));
+    this.defaultMaxTokens = Number(this.config.get('LLM_MAX_TOKENS', '512'));
     this.client = new BedrockRuntimeClient({ region });
   }
 

@@ -1,5 +1,3 @@
-import { pingDemoLlm } from './demoLlmApi';
-
 type HealthResponse = {
   status: string;
   service: string;
@@ -22,18 +20,5 @@ export async function pingDevServices(): Promise<void> {
     console.debug('[ethernetic] API reachable at /api/health');
   } else {
     console.debug('[ethernetic] API ping failed — is the server running? (npm run dev)');
-  }
-
-  if (import.meta.env.VITE_LLM_DEMO !== 'true') return;
-
-  const demo = await pingDemoLlm();
-  if (demo?.ok) {
-    console.debug(
-      `[ethernetic] LLM demo ping ok (${demo.modelId}, ${demo.latencyMs}ms)`,
-    );
-  } else {
-    console.debug(
-      '[ethernetic] LLM demo ping failed — set DEMO_LLM_ENABLED=true in server/.env',
-    );
   }
 }

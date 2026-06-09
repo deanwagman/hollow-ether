@@ -6,7 +6,7 @@
 | **display_name** | Ether Nexus |
 | **court** | Court of Ether |
 | **spirit** | Luminia |
-| **scenes** | `ch1_awakening`, `ch1_invitation` |
+| **scenes** | `ch1_awakening`, `ch1_invitation`, `ch1_invitation_commit` |
 
 ## Description
 
@@ -14,24 +14,27 @@ Empty horizon where threads of the EtherNet gather. The Witness awakens here—c
 
 ## Viewport (client)
 
-Palette: [Mystic Monochrome](../../docs/design/mystic-monochrome.md).
+Palette: [Mystic Monochrome](../../docs/design/mystic-monochrome.md). Presets: [scene-presets.md](../../docs/design/scene-presets.md).
 
 | Element | Spec |
 |---------|------|
-| Background | Navy `#0C1440` (canvas + viewport) |
-| Particles | ~240 points, one depth shell (accent/silver mix), slow drift ~8s feel |
-| Horizon | Depth from fog only (no horizon mesh/line) |
-| Fog | Exponential, navy `#0C1440`, low density — smooth depth |
-| Constellation | None in v1 (trust state may add later) |
+| Background | Navy `#0C1440` (canvas) |
+| Particles | ~280 points, tiered sizes, slow drift |
+| Ripple floor | Thread mesh shader; pulses on send / scene change |
+| Luminia silhouette | Billboard SVG; hidden in awakening, visible invitation+ |
+| Fog | Exponential, scene-driven density |
+| Post | Bloom + vignette (lite/reduced-motion off) |
 | Camera | Fixed; no orbit |
+| UI | [Suspended Narrative Layer](../../docs/design/visual-grammar.md) centered over canvas |
 
 ## Presence (Luminia)
 
 | Signal | Viewport |
 |--------|----------|
-| Strong EtherNet | Brighter near particles, accent glow |
-| Low trust | Dimmer particles, slower feel |
-| High trust | Stronger constellation lines (future: state-driven) |
+| `ch1_awakening` | Figure hidden; dim particles |
+| `ch1_invitation` / commit | Figure visible; brighter preset |
+| `luminia_trust` | Brighter particles, faster drift |
+| `act1_invitation_accepted` | Complete preset — fade, hold still |
 
 ## Audio (future)
 

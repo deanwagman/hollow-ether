@@ -54,6 +54,32 @@
   text-transform: uppercase;
 }
 
+.btn--ghost {
+  background: transparent;
+  color: var(--color-text-muted);
+  border-color: rgba(109, 123, 166, 0.25);
+}
+
+.btn--ghost:focus-visible {
+  outline: 1px solid rgba(109, 123, 166, 0.5);
+  outline-offset: 1px;
+}
+
+.btn--ghost:hover:not(:disabled) {
+  color: var(--color-text-primary);
+  border-color: var(--color-border-subtle);
+  box-shadow: 0 0 10px var(--color-glow-soft);
+}
+
+.btn--ghost:active:not(:disabled) {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.btn--compact {
+  padding: 0 var(--space-md);
+  font-size: var(--text-xs);
+}
+
 .btn:hover {
   border-color: var(--color-accent);
   box-shadow: 0 0 14px var(--color-glow);
