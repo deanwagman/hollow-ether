@@ -1,0 +1,110 @@
+.he-color-story {
+  min-height: 100vh;
+  padding: var(--he-space-8);
+  background:
+    radial-gradient(circle at 50% 0%, rgb(89 246 255 / 12%), transparent 38rem),
+    linear-gradient(180deg, rgb(6 17 22 / 80%), rgb(3 8 10 / 100%)),
+    var(--he-bg-base);
+  color: var(--he-text-primary);
+  font-family: var(--he-font-ui);
+}
+
+.he-color-story__header {
+  max-width: 760px;
+  margin-bottom: var(--he-space-8);
+}
+
+.he-color-story h1,
+.he-color-story h2 {
+  font-family: var(--he-font-title);
+  font-weight: 400;
+  letter-spacing: var(--he-letter-wide);
+}
+
+.he-color-story h1 {
+  margin: 0 0 var(--he-space-3);
+  font-size: var(--he-text-2xl);
+  color: var(--he-text-primary);
+  text-shadow: var(--he-glow-cyan-sm);
+}
+
+.he-color-story p {
+  color: var(--he-text-secondary);
+  line-height: var(--he-line-readable);
+}
+
+.he-eyebrow {
+  margin: 0 0 var(--he-space-2);
+  color: var(--he-text-spirit);
+  text-transform: uppercase;
+  letter-spacing: var(--he-letter-wider);
+  font-size: var(--he-text-xs);
+}
+
+.he-token-section {
+  margin-bottom: var(--he-space-8);
+  padding: var(--he-space-5);
+  border: 1px solid var(--he-panel-border);
+  border-radius: var(--he-radius-lg);
+  background: var(--he-panel-bg);
+  box-shadow: var(--he-panel-shadow);
+}
+
+.he-token-section h2 {
+  margin: 0 0 var(--he-space-4);
+  font-size: var(--he-text-sm);
+  color: var(--he-text-spirit);
+  text-transform: uppercase;
+}
+
+.he-token-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--he-space-4);
+}
+
+.he-token-card {
+  padding: var(--he-space-3);
+  border: 1px solid var(--he-border-subtle);
+  border-radius: var(--he-radius-md);
+  background: rgb(3 8 10 / 46%);
+}
+
+.he-token-swatch {
+  height: 72px;
+  border-radius: var(--he-radius-sm);
+  margin-bottom: var(--he-space-3);
+  border: 1px solid rgb(255 255 255 / 14%);
+  box-shadow: var(--he-glow-cyan-sm);
+}
+
+.he-token-swatch--effect {
+  background: var(--he-bg-base);
+  box-shadow: var(--he-glow-cyan-sm);
+}
+
+.he-token-swatch--gradient.he-gradient-globals {
+  background:
+    radial-gradient(circle at 50% 0%, rgb(89 246 255 / 10%), transparent 34rem),
+    radial-gradient(circle at 80% 20%, rgb(155 124 255 / 8%), transparent 28rem),
+    var(--he-bg-base);
+}
+
+.he-token-swatch--gradient.he-gradient-story {
+  background:
+    radial-gradient(circle at 50% 0%, rgb(89 246 255 / 12%), transparent 38rem),
+    linear-gradient(180deg, rgb(6 17 22 / 80%), rgb(3 8 10 / 100%)),
+    var(--he-bg-base);
+}
+
+.he-token-card strong {
+  display: block;
+  margin-bottom: var(--he-space-2);
+  color: var(--he-text-primary);
+  font-size: var(--he-text-sm);
+}
+
+.he-token-card code {
+  color: var(--he-text-muted);
+  font-size: var(--he-text-xs);
+}

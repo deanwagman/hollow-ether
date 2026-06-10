@@ -9,3 +9,6 @@ server/.env
 .DS_Store
 coverage/
 .vite/
+
+*storybook.log
+storybook-static

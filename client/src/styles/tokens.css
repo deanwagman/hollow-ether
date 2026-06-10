@@ -1,63 +1,235 @@
 :root {
-  /* Base */
-  --color-base-black: #0a0a0a;
-  --color-base-charcoal: #1e1e1e;
-  --color-base-navy: #0c1440;
+  /* Raw palette */
+  --he-color-void: #03080a;
+  --he-color-abyss: #061116;
+  --he-color-deep-sea: #0a1c24;
+  --he-color-glass: #0e242b;
+  --he-color-glass-bright: #143842;
 
-  /* Text */
-  --color-text-primary: #f5f5f5;
-  --color-text-secondary: #e0e0e0;
-  --color-text-muted: #a8adb8;
+  --he-color-ether-cyan: #59f6ff;
+  --he-color-ghost-teal: #8ef8f2;
+  --he-color-pale-glow: #c8fffa;
 
-  /* Accent */
-  --color-accent: #6d7ba6;
-  --color-accent-ether: #7b6ba6;
-  --color-accent-muted: #afafaf;
-  --color-highlight-cyan: #5eced4;
+  --he-color-salt-white: #e8f4f2;
+  --he-color-muted-text: #8fa8aa;
+  --he-color-dim-text: #53696d;
 
-  /* Surfaces */
-  --color-panel-bg: rgba(0, 0, 0, 0.6);
-  --color-border-subtle: rgba(109, 123, 166, 0.35);
-  --color-glow: rgba(109, 123, 166, 0.45);
-  --color-glow-soft: rgba(175, 175, 175, 0.25);
+  --he-color-vow-gold: #d8b86a;
+  --he-color-warning-amber: #ffb85c;
+  --he-color-blood-coral: #ff5f73;
+  --he-color-spirit-violet: #9b7cff;
+  --he-color-memory-blue: #4a9dff;
 
-  /* Typography families (loaded in index.html) */
-  --font-display: 'Oxanium', system-ui, sans-serif;
-  --font-nav: 'Audiowide', system-ui, sans-serif;
-  --font-mono: 'Kode Mono', ui-monospace, monospace;
-  --font-body: 'Noto Sans', 'Noto Sans JP', system-ui, sans-serif;
+  /* Semantic color tokens */
+  --he-bg-base: var(--he-color-void);
+  --he-bg-elevated: var(--he-color-abyss);
+  --he-bg-panel: var(--he-color-deep-sea);
+  --he-bg-glass: rgb(3 8 10 / 72%);
+  --he-bg-glass-strong: rgb(3 8 10 / 88%);
 
-  /* Type scale */
-  --text-xs: 0.75rem;
-  --text-sm: 0.875rem;
-  --text-base: 1rem;
-  --text-lg: 1.25rem;
-  --text-xl: 1.5rem;
+  --he-text-primary: var(--he-color-salt-white);
+  --he-text-secondary: var(--he-color-muted-text);
+  --he-text-muted: var(--he-color-dim-text);
+  --he-text-spirit: var(--he-color-ether-cyan);
+  --he-text-sacred: var(--he-color-vow-gold);
+  --he-text-danger: var(--he-color-blood-coral);
 
-  --leading-body: 1.5;
-  --leading-tight: 1.25;
-  --tracking-label: 0.12em;
-  --tracking-heading: 0.08em;
+  --he-border-subtle: rgb(142 248 242 / 14%);
+  --he-border-medium: rgb(142 248 242 / 28%);
+  --he-border-active: rgb(89 246 255 / 80%);
+  --he-border-sacred: rgb(216 184 106 / 70%);
+  --he-border-danger: rgb(255 95 115 / 75%);
+
+  --he-state-stable: var(--he-color-ether-cyan);
+  --he-state-protected: var(--he-color-vow-gold);
+  --he-state-warning: var(--he-color-warning-amber);
+  --he-state-danger: var(--he-color-blood-coral);
+  --he-state-corrupted: var(--he-color-spirit-violet);
+  --he-state-memory: var(--he-color-memory-blue);
+
+  /* ---------------------------------- */
+  /* Typography                          */
+  /* ---------------------------------- */
+
+  /* Font families */
+  --he-font-title: "Cinzel", "Cormorant Garamond", Georgia, serif;
+  --he-font-logo: "Cinzel", "Cormorant Garamond", Georgia, serif;
+  --he-font-body: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+  --he-font-ui: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+  --he-font-code: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+
+  /* Font weights */
+  --he-font-weight-light: 300;
+  --he-font-weight-regular: 400;
+  --he-font-weight-medium: 500;
+  --he-font-weight-semibold: 600;
+  --he-font-weight-bold: 700;
+
+  /* Font sizes */
+  --he-text-2xs: 0.6875rem; /* 11px */
+  --he-text-xs: 0.75rem; /* 12px */
+  --he-text-sm: 0.875rem; /* 14px */
+  --he-text-md: 1rem; /* 16px */
+  --he-text-lg: 1.125rem; /* 18px */
+  --he-text-xl: 1.375rem; /* 22px */
+  --he-text-2xl: 1.75rem; /* 28px */
+  --he-text-3xl: 2.25rem; /* 36px */
+  --he-text-4xl: 3rem; /* 48px */
+
+  /* Responsive display sizes */
+  --he-text-display-sm: clamp(2rem, 5vw, 3.5rem);
+  --he-text-display-md: clamp(2.75rem, 7vw, 5.5rem);
+  --he-text-display-lg: clamp(4rem, 10vw, 8rem);
+
+  /* Line heights */
+  --he-line-none: 1;
+  --he-line-tight: 1.1;
+  --he-line-snug: 1.25;
+  --he-line-normal: 1.5;
+  --he-line-readable: 1.7;
+  --he-line-loose: 1.9;
+
+  /* Letter spacing */
+  --he-letter-tight: -0.02em;
+  --he-letter-normal: 0;
+  --he-letter-wide: 0.08em;
+  --he-letter-wider: 0.14em;
+  --he-letter-widest: 0.22em;
+  --he-letter-logo: 0.18em;
+
+  /* Text shadows / glow */
+  --he-text-glow-cyan-sm: 0 0 8px rgb(89 246 255 / 36%);
+  --he-text-glow-cyan-md:
+    0 0 8px rgb(89 246 255 / 42%),
+    0 0 24px rgb(89 246 255 / 24%);
+  --he-text-glow-cyan-lg:
+    0 0 12px rgb(89 246 255 / 48%),
+    0 0 36px rgb(89 246 255 / 32%),
+    0 0 72px rgb(89 246 255 / 18%);
+
+  --he-text-glow-gold-sm: 0 0 8px rgb(216 184 106 / 32%);
+  --he-text-glow-danger-sm: 0 0 8px rgb(255 95 115 / 32%);
+  --he-text-glow-violet-sm: 0 0 8px rgb(155 124 255 / 32%);
+
+  /* Typography roles */
+  --he-type-logo-font: var(--he-font-logo);
+  --he-type-logo-size: var(--he-text-display-md);
+  --he-type-logo-weight: var(--he-font-weight-regular);
+  --he-type-logo-line-height: var(--he-line-tight);
+  --he-type-logo-letter-spacing: var(--he-letter-logo);
+
+  --he-type-title-font: var(--he-font-title);
+  --he-type-title-size: var(--he-text-3xl);
+  --he-type-title-weight: var(--he-font-weight-regular);
+  --he-type-title-line-height: var(--he-line-tight);
+  --he-type-title-letter-spacing: var(--he-letter-wide);
+
+  --he-type-heading-font: var(--he-font-title);
+  --he-type-heading-size: var(--he-text-xl);
+  --he-type-heading-weight: var(--he-font-weight-regular);
+  --he-type-heading-line-height: var(--he-line-snug);
+  --he-type-heading-letter-spacing: var(--he-letter-wide);
+
+  --he-type-subheading-font: var(--he-font-ui);
+  --he-type-subheading-size: var(--he-text-sm);
+  --he-type-subheading-weight: var(--he-font-weight-medium);
+  --he-type-subheading-line-height: var(--he-line-normal);
+  --he-type-subheading-letter-spacing: var(--he-letter-wider);
+
+  --he-type-body-font: var(--he-font-body);
+  --he-type-body-size: var(--he-text-md);
+  --he-type-body-weight: var(--he-font-weight-regular);
+  --he-type-body-line-height: var(--he-line-readable);
+  --he-type-body-letter-spacing: var(--he-letter-normal);
+
+  --he-type-dialogue-font: var(--he-font-body);
+  --he-type-dialogue-size: var(--he-text-md);
+  --he-type-dialogue-weight: var(--he-font-weight-regular);
+  --he-type-dialogue-line-height: var(--he-line-readable);
+  --he-type-dialogue-letter-spacing: 0.01em;
+
+  --he-type-ui-font: var(--he-font-ui);
+  --he-type-ui-size: var(--he-text-sm);
+  --he-type-ui-weight: var(--he-font-weight-regular);
+  --he-type-ui-line-height: var(--he-line-normal);
+  --he-type-ui-letter-spacing: 0.02em;
+
+  --he-type-label-font: var(--he-font-ui);
+  --he-type-label-size: var(--he-text-xs);
+  --he-type-label-weight: var(--he-font-weight-medium);
+  --he-type-label-line-height: var(--he-line-normal);
+  --he-type-label-letter-spacing: var(--he-letter-wider);
+
+  --he-type-caption-font: var(--he-font-ui);
+  --he-type-caption-size: var(--he-text-xs);
+  --he-type-caption-weight: var(--he-font-weight-regular);
+  --he-type-caption-line-height: var(--he-line-normal);
+  --he-type-caption-letter-spacing: 0.02em;
+
+  --he-type-micro-font: var(--he-font-ui);
+  --he-type-micro-size: var(--he-text-2xs);
+  --he-type-micro-weight: var(--he-font-weight-regular);
+  --he-type-micro-line-height: var(--he-line-normal);
+  --he-type-micro-letter-spacing: 0.04em;
+
+  --he-type-command-font: var(--he-font-code);
+  --he-type-command-size: var(--he-text-sm);
+  --he-type-command-weight: var(--he-font-weight-medium);
+  --he-type-command-line-height: var(--he-line-normal);
+  --he-type-command-letter-spacing: 0.04em;
 
   /* Spacing */
-  --space-xs: 0.25rem;
-  --space-sm: 0.5rem;
-  --space-md: 0.75rem;
-  --space-lg: 1rem;
-  --space-xl: 1.5rem;
+  --he-space-1: 0.25rem;
+  --he-space-2: 0.5rem;
+  --he-space-3: 0.75rem;
+  --he-space-4: 1rem;
+  --he-space-5: 1.25rem;
+  --he-space-6: 1.5rem;
+  --he-space-8: 2rem;
+  --he-space-10: 2.5rem;
+  --he-space-12: 3rem;
+  --he-space-16: 4rem;
 
-  /* Layout */
-  --input-bar-height: 3.25rem;
-  --radius-sm: 2px;
-  --layout-stage-height: 20vh;
-  --layout-content-width: min(80vw, 75rem);
-  --snl-fade-height: 3rem;
+  /* Radius */
+  --he-radius-sm: 0.375rem;
+  --he-radius-md: 0.625rem;
+  --he-radius-lg: 0.875rem;
+  --he-radius-xl: 1.25rem;
+  --he-radius-full: 999px;
 
-  /* Motion */
-  --motion-slow: 8s;
-  --motion-medium: 400ms;
-  --motion-fast: 200ms;
-  --motion-turn: 600ms;
-  --motion-reveal-line-enter: 300ms;
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  /* Shadows and glow */
+  --he-shadow-panel: 0 18px 60px rgb(0 0 0 / 55%);
+  --he-shadow-inset: inset 0 1px 0 rgb(255 255 255 / 6%);
+
+  --he-glow-cyan-sm: 0 0 12px rgb(89 246 255 / 28%);
+  --he-glow-cyan-md: 0 0 28px rgb(89 246 255 / 34%);
+  --he-glow-cyan-lg: 0 0 64px rgb(89 246 255 / 26%);
+
+  --he-glow-gold-sm: 0 0 12px rgb(216 184 106 / 24%);
+  --he-glow-gold-md: 0 0 28px rgb(216 184 106 / 28%);
+
+  --he-glow-danger-sm: 0 0 14px rgb(255 95 115 / 28%);
+  --he-glow-violet-sm: 0 0 14px rgb(155 124 255 / 28%);
+
+  /* Component tokens */
+  --he-panel-bg: var(--he-bg-glass);
+  --he-panel-bg-strong: var(--he-bg-glass-strong);
+  --he-panel-border: var(--he-border-subtle);
+  --he-panel-border-active: var(--he-border-active);
+  --he-panel-shadow: var(--he-shadow-panel), var(--he-shadow-inset);
+
+  --he-choice-bg: rgb(8 22 28 / 72%);
+  --he-choice-bg-hover: rgb(12 38 46 / 82%);
+  --he-choice-bg-selected: rgb(8 40 48 / 88%);
+  --he-choice-border: rgb(142 248 242 / 16%);
+  --he-choice-border-selected: var(--he-border-active);
+
+  --he-vow-bg: rgb(32 25 10 / 35%);
+  --he-vow-border: var(--he-border-sacred);
+  --he-vow-glow: var(--he-glow-gold-sm);
+
+  --he-map-path-current: var(--he-color-ether-cyan);
+  --he-map-path-possible: rgb(142 248 242 / 36%);
+  --he-map-node-locked: rgb(83 105 109 / 70%);
+  --he-map-node-complete: var(--he-color-vow-gold);
 }
