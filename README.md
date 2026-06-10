@@ -1,4 +1,4 @@
-# EtherNetic
+# Hollow Ether
 
 AI-driven narrative experience on a minimalist, reactive 3D world.
 
@@ -35,7 +35,7 @@ Vite `proxy error: ECONNREFUSED` on `/api/*` means the API is not up yet—usual
 | API (proxied) | http://localhost:5173/api/* → Nest on :3000 |
 | Postgres | `localhost:5432` (Docker) |
 
-Game state is **server-authoritative** and stored in **PostgreSQL** (Prisma). Restarting the API keeps existing sessions. A browser refresh resumes the same session via `localStorage` (`ethernetic_session_id`). Use **New game** in the UI to start over.
+Game state is **server-authoritative** and stored in **PostgreSQL** (Prisma). Restarting the API keeps existing sessions. A browser refresh resumes the same session via `localStorage` (`hollow_ether_session_id`). Use **New game** in the UI to start over.
 
 ```bash
 curl -X POST http://localhost:5173/api/sessions
@@ -106,9 +106,9 @@ Step 3 needs **≥2 turns** and orientation from step 2.
 
 | Package | Path |
 |---------|------|
-| `@ethernetic/client` | `client/` |
-| `@ethernetic/server` | `server/` |
-| `@ethernetic/shared` | `packages/shared/` |
+| `@hollow-ether/client` | `client/` |
+| `@hollow-ether/server` | `server/` |
+| `@hollow-ether/shared` | `packages/shared/` |
 
 ## Phase 1 — Ether Nexus (Act 1)
 

@@ -1,6 +1,6 @@
 # Chapter 1 — The Fraying Net
 
-**Summary:** The player awakens on the EtherNet as a **Witness**. Chapter 1 is four **solo acts** (one spirit each), two **short bridges**, and one **closing beat**. No ensemble chatter; courts and other spirits exist as rumors until their act.
+**Summary:** The player awakens on the Hollow Ether as a **Witness**. Chapter 1 is four **solo acts** (one spirit each), two **short bridges**, and one **closing beat**. No ensemble chatter; courts and other spirits exist as rumors until their act.
 
 **Player fantasy:** Learn to listen. Believe one person before proof. Help another regain voice. Learn not to blame the frightening one.
 

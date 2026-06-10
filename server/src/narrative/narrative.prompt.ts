@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
-import type { GameFlags, GameState, SceneId } from '@ethernetic/shared';
+import type { GameFlags, GameState, SceneId } from '@hollow-ether/shared';
 
 const PROMPT_SUFFIX =
   'Reply as Luminia in one short paragraph (2–3 sentences). No JSON. Do not advance the scene or mention beats from other scenes. Do not repeat your previous reply.';

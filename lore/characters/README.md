@@ -1,6 +1,6 @@
 # Characters
 
-Spirit profiles for EtherNetic. Each file is canon for prompts, rules, and state—not player-facing copy.
+Spirit profiles for Hollow Ether. Each file is canon for prompts, rules, and state—not player-facing copy.
 
 ## File format
 

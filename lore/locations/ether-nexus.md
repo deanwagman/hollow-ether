@@ -10,7 +10,7 @@
 
 ## Description
 
-Empty horizon where threads of the EtherNet gather. The Witness awakens here—calm, dark depth, faint signal drift before paths open toward Tide or Thalos.
+Empty horizon where threads of the Hollow Ether gather. The Witness awakens here—calm, dark depth, faint signal drift before paths open toward Tide or Thalos.
 
 ## Viewport (client)
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
-import type { GameState } from '@ethernetic/shared';
+import type { GameState } from '@hollow-ether/shared';
 import { PrismaService } from '../prisma/prisma.service';
 
 function normalizeGameState(state: GameState): GameState {

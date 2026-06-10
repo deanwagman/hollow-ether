@@ -1,11 +1,11 @@
-Technical Bootstrap Plan for EtherNetic
+Technical Bootstrap Plan for Hollow Ether
 
-This plan outlines a testable roadmap for building EtherNetic – an AI‑driven narrative experience where players explore a minimalist, reactive world.  Each phase groups related tasks that can be implemented and tested before progressing.  Citations are provided from external resources to justify the design choices.
+This plan outlines a testable roadmap for building Hollow Ether – an AI‑driven narrative experience where players explore a minimalist, reactive world.  Each phase groups related tasks that can be implemented and tested before progressing.  Citations are provided from external resources to justify the design choices.
 
 Phase 0 – Project Definition
 
 1. Define narrative scope and world canon
-    Write a detailed design document summarising the story bible and initial chapter.  Identify key spirits (Lumina/Luminia, Elara, Zephyr, Calyx), quest arcs (e.g. Elara’s innocence, Zephyr’s stolen voice), lore (Portal of Thalos, EtherNet, elemental courts) and emotional beats.  Use this to inform state variables in later steps.
+    Write a detailed design document summarising the story bible and initial chapter.  Identify key spirits (Lumina/Luminia, Elara, Zephyr, Calyx), quest arcs (e.g. Elara’s innocence, Zephyr’s stolen voice), lore (Portal of Thalos, Hollow Ether, elemental courts) and emotional beats.  Use this to inform state variables in later steps.
 2. Architectural planning
     Decide on a monorepo structure (e.g. /client for the React/Three.js front‑end and /server for the Node/NestJS back‑end).  Plan for two types of LLM calls: a cheap classifier for intent and a rich narrative generator.  Design the persistent state (player profile, chapter state, spirit affinities) and memory layers (summaries and vector store) so that the world remembers choices.
 
@@ -82,7 +82,7 @@ Phase 3 – LLM Orchestration
 Phase 4 – Front‑End Integration and Effects
 
 1. Map LLM outputs to visuals and audio
-    The LLM’s visualEffects field might specify colour palettes, particle behaviours and sound cues.  Connect these to your Three.js scene.  For example, increase particle density when the EtherNet is strong or darken the environment when Calyx’s influence grows.  Use a sound library (e.g. Tone.js) to play chimes, whispers or ambient music.  Keep the base scene minimal – the fundamentals article warns that raw WebGL draws only primitives and that three.js provides convenient abstractions
+    The LLM’s visualEffects field might specify colour palettes, particle behaviours and sound cues.  Connect these to your Three.js scene.  For example, increase particle density when the Hollow Ether is strong or darken the environment when Calyx’s influence grows.  Use a sound library (e.g. Tone.js) to play chimes, whispers or ambient music.  Keep the base scene minimal – the fundamentals article warns that raw WebGL draws only primitives and that three.js provides convenient abstractions
 
 .  Use procedural animations and shaders instead of heavy meshes to maintain performance on Web, mobile and VR.
 

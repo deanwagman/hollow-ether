@@ -1,4 +1,4 @@
-import type { GameFlags, SceneId } from '@ethernetic/shared';
+import type { GameFlags, SceneId } from '@hollow-ether/shared';
 
 export type VisualPreset = {
   particleOpacity: number;

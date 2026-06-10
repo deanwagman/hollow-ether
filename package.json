@@ -1,5 +1,5 @@
 {
-  "name": "ethernetic",
+  "name": "hollow-ether",
   "private": true,
   "type": "module",
   "workspaces": [
@@ -14,12 +14,12 @@
     "dev:client": "npm run dev -w client",
     "dev:server": "npm run dev -w server",
     "build": "npm run build -w client",
-    "build:shared": "npm run build -w @ethernetic/shared",
+    "build:shared": "npm run build -w @hollow-ether/shared",
     "build:server": "npm run build:shared && npm run prisma:generate -w server && npm run build -w server",
     "db:up": "docker compose up -d postgres",
     "db:down": "docker compose down",
-    "test:shared": "npm run test -w @ethernetic/shared",
-    "test:client": "npm run test -w @ethernetic/client",
+    "test:shared": "npm run test -w @hollow-ether/shared",
+    "test:client": "npm run test -w @hollow-ether/client",
     "test:server": "npm run test -w server",
     "lint": "npm run lint -w client"
   },

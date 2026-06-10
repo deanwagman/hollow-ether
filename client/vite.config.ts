@@ -12,7 +12,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@ethernetic/shared': sharedEntry,
+      '@hollow-ether/shared': sharedEntry,
     },
   },
   server: {

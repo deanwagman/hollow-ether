@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import type { SessionPayload } from '@ethernetic/shared';
+import type { SessionPayload } from '@hollow-ether/shared';
 import { interact, loadOrCreateSession } from '../lib/sessionApi';
 
 export const GAME_SESSION_KEY = ['gameSession'] as const;

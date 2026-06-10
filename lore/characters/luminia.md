@@ -22,7 +22,7 @@ Does not attend hearings. Names Elara; does not summon her.
 
 ## Essence
 
-The closest thing to a narrator who still has a stake. Luminia does not command the other courts—she **translates** the EtherNet for mortals and mourns when signals distort. She believes the player arrived for a reason but will not say what that reason is until trust is earned.
+The closest thing to a narrator who still has a stake. Luminia does not command the other courts—she **translates** the Hollow Ether for mortals and mourns when signals distort. She believes the player arrived for a reason but will not say what that reason is until trust is earned.
 
 ## Voice
 
@@ -35,7 +35,7 @@ The closest thing to a narrator who still has a stake. Luminia does not command 
 
 | Want | Fear |
 |------|------|
-| Restore stable flow through the EtherNet | The Portal of Thalos opening before the courts align |
+| Restore stable flow through the Hollow Ether | The Portal of Thalos opening before the courts align |
 | A player who listens more than they seize power | Calyx’s patience being mistaken for permission |
 
 **Secret (revealed late Ch.1):** She once let a mortal through the Portal preview—and the distortion still ripples.
@@ -69,7 +69,7 @@ The closest thing to a narrator who still has a stake. Luminia does not command 
 
 | Signal | Effect hint |
 |--------|-------------|
-| Strong EtherNet | Steely blue accent particles (`#6D7BA6`), silver far motes; soft chime (future) |
+| Strong Hollow Ether | Steely blue accent particles (`#6D7BA6`), silver far motes; soft chime (future) |
 | Low trust | Dimmer particles, longer pauses in text stream |
 | High trust | Brighter constellation lines between UI and horizon — see `lore/locations/ether-nexus.md` |
 

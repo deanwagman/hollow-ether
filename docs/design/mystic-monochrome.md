@@ -1,6 +1,6 @@
 # Mystic Monochrome Style Guide
 
-Canonical visual language for EtherNetic. Implemented in `client/src/styles/` and `client/src/theme/tokens.ts`.
+Canonical visual language for Hollow Ether. Implemented in `client/src/styles/` and `client/src/theme/tokens.ts`.
 
 ## 1. Colour palette
 

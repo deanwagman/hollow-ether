@@ -13,7 +13,7 @@ import {
   resolveInteractRules,
   type GameState,
   type SessionPayload,
-} from '@ethernetic/shared';
+} from '@hollow-ether/shared';
 import { randomUUID } from 'crypto';
 import { NarrativeService } from '../narrative/narrative.service';
 import { SessionStore } from './session.store';

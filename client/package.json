@@ -1,5 +1,5 @@
 {
-  "name": "@ethernetic/client",
+  "name": "@hollow-ether/client",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,7 +11,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@ethernetic/shared": "*",
+    "@hollow-ether/shared": "*",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.1.2",
     "@react-three/postprocessing": "^3.0.4",

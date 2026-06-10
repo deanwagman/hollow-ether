@@ -1,6 +1,6 @@
 # Locations
 
-Places on the EtherNet and in spirit courts. Viewport rendering notes live in each file.
+Places on the Hollow Ether and in spirit courts. Viewport rendering notes live in each file.
 
 | id | File | Act | Spirit |
 |----|------|-----|--------|

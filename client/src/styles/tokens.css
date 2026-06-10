@@ -58,5 +58,6 @@
   --motion-medium: 400ms;
   --motion-fast: 200ms;
   --motion-turn: 600ms;
+  --motion-reveal-line-enter: 300ms;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }

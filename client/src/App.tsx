@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useState } from 'react';
-import { SCENES } from '@ethernetic/shared';
+import { SCENES } from '@hollow-ether/shared';
 import AppShell from './components/AppShell';
 import SuspendedNarrativeLayer from './components/SuspendedNarrativeLayer';
 import { useNexusVisualState } from './game/useNexusVisualState';
@@ -10,6 +10,7 @@ import { useQueryClient } from '@tanstack/react-query';
 
 export default function App() {
   const [input, setInput] = useState('');
+  const [isRevealing, setIsRevealing] = useState(false);
   const queryClient = useQueryClient();
   const { session, isPending, isError, refetch } = useGameSession();
   const interactMutation = useInteract(session);
@@ -35,13 +36,13 @@ export default function App() {
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
     const trimmed = input.trim();
-    if (!trimmed || inputDisabled || isBusy || !session) return;
+    if (!trimmed || inputDisabled || isBusy || isRevealing || !session) return;
     interactMutation.mutate(trimmed);
     setInput('');
   }
 
   const act1Complete = state?.inputDisabled ?? false;
-  const placeholder = act1Complete ? 'Act 1 complete.' : 'Speak to the EtherNet…';
+  const placeholder = act1Complete ? 'Act 1 complete.' : 'Speak to the Hollow Ether…';
   const inputTitle = act1Complete
     ? 'Act 1 complete — Elara awaits (coming soon).'
     : undefined;
@@ -59,11 +60,12 @@ export default function App() {
       sceneKey={sceneKey}
     >
       <SuspendedNarrativeLayer
-        sceneKey={sceneKey}
+        sessionId={session?.sessionId ?? ''}
         messages={state?.messages ?? []}
         isLoading={isPending && !(state?.messages.length ?? 0)}
         isListening={interactMutation.isPending}
         isError={isError}
+        onRevealingChange={setIsRevealing}
         errorContent={
           <p className="narrative-message narrative-message--player">
             Could not reach the server. Run <code>npm run dev</code> to start the client and
@@ -82,13 +84,13 @@ export default function App() {
             onChange={(e) => setInput(e.target.value)}
             aria-label={inputTitle ?? 'Message input'}
             autoComplete="off"
-            disabled={inputDisabled || isBusy || isError}
+            disabled={inputDisabled || isBusy || isError || isRevealing}
           />
           <button
             type="button"
             className="btn btn--nav btn--ghost"
             onClick={handleNewGame}
-            disabled={isBusy}
+            disabled={isBusy || isRevealing}
             aria-label="Start a new game session"
           >
             New game
@@ -96,7 +98,7 @@ export default function App() {
           <button
             type="submit"
             className="btn btn--nav btn--compact"
-            disabled={inputDisabled || isBusy || isError}
+            disabled={inputDisabled || isBusy || isError || isRevealing}
           >
             Send
           </button>

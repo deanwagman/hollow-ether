@@ -1,4 +1,4 @@
-import type { GameState, SessionPayload } from '@ethernetic/shared';
+import type { GameState, SessionPayload } from '@hollow-ether/shared';
 import {
   clearStoredSessionId,
   getStoredSessionId,

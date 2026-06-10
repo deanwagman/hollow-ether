@@ -1,6 +1,6 @@
 # Visual grammar
 
-Canonical rules for EtherNetic atmosphere, motion, and UI layers. Global palette and typography: [mystic-monochrome.md](mystic-monochrome.md). Location-specific numbers: [scene-presets.md](scene-presets.md).
+Canonical rules for Hollow Ether atmosphere, motion, and UI layers. Global palette and typography: [mystic-monochrome.md](mystic-monochrome.md). Location-specific numbers: [scene-presets.md](scene-presets.md).
 
 ## North star
 
@@ -61,6 +61,7 @@ Shared width token: `--layout-content-width`. Stage height: `--layout-stage-heig
 | **Breath** | 6–10s | Particle drift, figure idle scale |
 | **Turn** | 600ms (`--motion-turn`) | Header + SNL fade; R3F preset lerp |
 | **Beat** | 250ms | Send pulse, Act 1 accept bloom |
+| **Reveal** | 35ms/char (+ jitter) | Spirit dialogue typewriter in SNL (HTML only; not WebGL effect budget) |
 
 Shared constants: `client/src/theme/motion.ts`.
 

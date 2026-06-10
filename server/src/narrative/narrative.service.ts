@@ -3,7 +3,7 @@ import {
   buildContext,
   getSpiritLines,
   type GameState,
-} from '@ethernetic/shared';
+} from '@hollow-ether/shared';
 import type { LlmProvider } from '../llm/llm.provider';
 import { LLM_PROVIDER } from '../llm/llm.provider';
 import type { ChatMessage } from '../llm/llm.types';

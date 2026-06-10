@@ -5,7 +5,7 @@
 | Field | Value |
 |-------|--------|
 | **id** | `player` |
-| **role** | **Witness** — a mortal who can perceive the EtherNet but is not a spirit |
+| **role** | **Witness** — a mortal who can perceive the Hollow Ether but is not a spirit |
 | **court** | None (mortals sit outside courts) |
 | **role_in_chapter_1** | Sequential Witness: one spirit per scene |
 
@@ -25,7 +25,7 @@ You have no innate magic. Power comes from **choices**, **oaths you keep**, and 
 
 | Want | Fear |
 |------|------|
-| Understand why you can hear the EtherNet | Becoming a pawn who destroys Elara or Zephyr to “solve” the plot |
+| Understand why you can hear the Hollow Ether | Becoming a pawn who destroys Elara or Zephyr to “solve” the plot |
 | Help without claiming ownership of spirit pain | Being silenced like Zephyr (metaphor: UI mute, lost saves) |
 
 **Optional reveal (post–Ch.1):** Your hearing began the night Luminia’s Portal preview rippled—you were nearby or connected. Not required for Chapter 1.

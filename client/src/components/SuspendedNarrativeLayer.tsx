@@ -4,33 +4,38 @@ import type { NarrativeLine } from '../game/types';
 
 type SuspendedNarrativeLayerProps = {
   messages: NarrativeLine[];
+  sessionId: string;
   isLoading?: boolean;
   isListening?: boolean;
   isError?: boolean;
   errorContent?: ReactNode;
-  sceneKey: string;
+  onRevealingChange?: (revealing: boolean) => void;
 };
 
 export default function SuspendedNarrativeLayer({
   messages,
+  sessionId,
   isLoading,
   isListening,
   isError,
   errorContent,
-  sceneKey,
+  onRevealingChange,
 }: SuspendedNarrativeLayerProps) {
   return (
-    <div key={sceneKey} className="suspended-narrative-layer">
+    <div className="suspended-narrative-layer">
       {isError ? (
         <div className="suspended-narrative-layer__dialogue narrative-panel--status">
           {errorContent}
         </div>
       ) : (
         <NarrativePanel
+          key={sessionId || 'loading'}
           messages={messages}
+          sessionId={sessionId}
           isLoading={isLoading}
           isListening={isListening}
           variant="embedded"
+          onRevealingChange={onRevealingChange}
         />
       )}
     </div>

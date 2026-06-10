@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { createInitialSession } from '@ethernetic/shared';
+import { createInitialSession } from '@hollow-ether/shared';
 import type { LlmProvider } from '../llm/llm.provider';
 import { buildNarrativeHistory, getPromptTextForScene } from './narrative.prompt';
 import { NarrativeService } from './narrative.service';

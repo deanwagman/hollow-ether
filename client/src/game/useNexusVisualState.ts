@@ -1,4 +1,4 @@
-import type { GameState } from '@ethernetic/shared';
+import type { GameState } from '@hollow-ether/shared';
 import { useEffect, useRef, useState } from 'react';
 import { LITE_BREAKPOINT_PX } from '../theme/motion';
 import { resolveLitePreset, resolvePreset, type VisualPreset } from '../theme/presets';

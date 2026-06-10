@@ -37,7 +37,7 @@ Calyx ends things that cling past their season—including lies, oaths, and dist
 
 | Want | Fear |
 |------|------|
-| The EtherNet to shed corrupted threads before the Portal opens | Premature mercy that preserves a lie |
+| The Hollow Ether to shed corrupted threads before the Portal opens | Premature mercy that preserves a lie |
 | Players who accept cost | Being reduced to “evil spirit” in mortal tales |
 
 **Secret:** The Mute Bell was forged in Root court soil—but on commission from the **real** thief (unnamed until a later chapter). Calyx facilitated the *conditions*, not the act—why they are easy to misread.

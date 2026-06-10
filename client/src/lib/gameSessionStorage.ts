@@ -1,4 +1,4 @@
-const SESSION_ID_KEY = 'ethernetic_session_id';
+const SESSION_ID_KEY = 'hollow_ether_session_id';
 
 export function getStoredSessionId(): string | null {
   try {

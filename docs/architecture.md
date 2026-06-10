@@ -1,4 +1,4 @@
-# EtherNetic architecture
+# Hollow Ether architecture
 
 High-level layout for the monorepo. **Canonical game state** lives on the server per `sessionId`, persisted in **PostgreSQL** via **Prisma**; the client mirrors it via TanStack Query.
 
@@ -6,9 +6,9 @@ High-level layout for the monorepo. **Canonical game state** lives on the server
 
 | Package | Path | Role |
 |---------|------|------|
-| `@ethernetic/shared` | `packages/shared/` | Types, rules, `applyInteract`, `mockInteract` |
-| `@ethernetic/client` | `client/` | React, R3F, Suspended Narrative Layer, TanStack Query |
-| `@ethernetic/server` | `server/` | NestJS sessions API, narrative LLM, Prisma |
+| `@hollow-ether/shared` | `packages/shared/` | Types, rules, `applyInteract`, `mockInteract` |
+| `@hollow-ether/client` | `client/` | React, R3F, Suspended Narrative Layer, TanStack Query |
+| `@hollow-ether/server` | `server/` | NestJS sessions API, narrative LLM, Prisma |
 
 ## Development request flow
 
@@ -22,7 +22,7 @@ Browser (localhost:5173)
 
 `npm run dev` starts Vite and Nest. Postgres runs via `npm run db:up` (Docker Compose).
 
-**Sessions survive API restart** (same `sessionId` in DB). The browser stores `sessionId` in `localStorage` under `ethernetic_session_id` and attempts `GET /api/sessions/:id` on load before creating a new session.
+**Sessions survive API restart** (same `sessionId` in DB). The browser stores `sessionId` in `localStorage` under `hollow_ether_session_id` and attempts `GET /api/sessions/:id` on load before creating a new session.
 
 ## Data model
 

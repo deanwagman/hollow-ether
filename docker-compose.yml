@@ -4,13 +4,13 @@ services:
     ports:
       - '5432:5432'
     environment:
-      POSTGRES_USER: ethernetic
-      POSTGRES_PASSWORD: ethernetic
-      POSTGRES_DB: ethernetic
+      POSTGRES_USER: hollow_ether
+      POSTGRES_PASSWORD: hollow_ether
+      POSTGRES_DB: hollow_ether
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U ethernetic -d ethernetic']
+      test: ['CMD-SHELL', 'pg_isready -U hollow_ether -d hollow_ether']
       interval: 5s
       timeout: 5s
       retries: 5

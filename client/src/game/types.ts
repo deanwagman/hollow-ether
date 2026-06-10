@@ -6,4 +6,4 @@ export type {
   SessionPayload,
   SpeakerId,
   SpiritId,
-} from '@ethernetic/shared';
+} from '@hollow-ether/shared';

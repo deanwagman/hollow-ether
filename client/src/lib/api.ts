@@ -17,8 +17,8 @@ export async function pingApi(): Promise<boolean> {
 export async function pingDevServices(): Promise<void> {
   const apiOk = await pingApi();
   if (apiOk) {
-    console.debug('[ethernetic] API reachable at /api/health');
+    console.debug('[hollow-ether] API reachable at /api/health');
   } else {
-    console.debug('[ethernetic] API ping failed — is the server running? (npm run dev)');
+    console.debug('[hollow-ether] API ping failed — is the server running? (npm run dev)');
   }
 }

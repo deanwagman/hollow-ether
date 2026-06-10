@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { INITIAL_FLAGS } from '@ethernetic/shared';
+import { INITIAL_FLAGS } from '@hollow-ether/shared';
 import { resolvePreset } from './presets';
 
 describe('resolvePreset', () => {

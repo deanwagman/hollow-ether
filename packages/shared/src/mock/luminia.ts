@@ -85,7 +85,7 @@ function getAwakeningLines(ctx: LuminiaContext): string[] {
 
   if (tags.includes('what') || tags.includes('net')) {
     return [
-      'The EtherNet is a weave of courts—Tide, Gale, Root, and Ether.',
+      'The Hollow Ether is a weave of courts—Tide, Gale, Root, and Ether.',
       'Something in the weave argues tonight. Listen before you walk toward it.',
     ];
   }

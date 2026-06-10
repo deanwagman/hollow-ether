@@ -20,7 +20,7 @@ May reference Elara (“ask Tide later”); Calyx only as rumor until player mee
 
 ## Essence
 
-Once the loudest herald between courts. Something—or someone—**captured Zephyr’s voice** in a vessel (working name: the Mute Bell). They can still think and write through the EtherNet, but sound is wrong: scraped whispers, reversed syllables, or silence where emphasis should be.
+Once the loudest herald between courts. Something—or someone—**captured Zephyr’s voice** in a vessel (working name: the Mute Bell). They can still think and write through the Hollow Ether, but sound is wrong: scraped whispers, reversed syllables, or silence where emphasis should be.
 
 ## Voice
 

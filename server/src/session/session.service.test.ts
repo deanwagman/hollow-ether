@@ -3,7 +3,7 @@ import {
   applyInteract,
   createInitialSession,
   type GameState,
-} from '@ethernetic/shared';
+} from '@hollow-ether/shared';
 import type { LlmProvider } from '../llm/llm.provider';
 import { NarrativeService } from '../narrative/narrative.service';
 import { SessionService } from './session.service';

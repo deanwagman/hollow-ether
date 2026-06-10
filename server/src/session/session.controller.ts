@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import type { GameState, SessionPayload } from '@ethernetic/shared';
+import type { GameState, SessionPayload } from '@hollow-ether/shared';
 import { SessionService } from './session.service';
 
 @Controller('sessions')

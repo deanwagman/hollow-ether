@@ -177,3 +177,24 @@
 .narrative-panel--embedded .narrative-message--player {
   text-shadow: 0 1px 8px rgba(0, 0, 0, 0.85);
 }
+
+.narrative-message--entering {
+  animation: narrative-line-enter var(--motion-reveal-line-enter) var(--ease-out);
+}
+
+@keyframes narrative-line-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .narrative-message--entering {
+    animation: none;
+  }
+}

@@ -22,7 +22,7 @@ Zephyr and Calyx are mentioned, not present, until Act 4.3 memory vision (silent
 
 ## Essence
 
-A young tide-spirit accused of “unweaving” a mortal’s memory on the EtherNet. She did touch the memory—but to **shield** it from something worse. The courts have not finished judging her; gossip travels faster than truth.
+A young tide-spirit accused of “unweaving” a mortal’s memory on the Hollow Ether. She did touch the memory—but to **shield** it from something worse. The courts have not finished judging her; gossip travels faster than truth.
 
 ## Voice
 
