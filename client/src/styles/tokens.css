@@ -211,6 +211,141 @@
   --he-glow-danger-sm: 0 0 14px rgb(255 95 115 / 28%);
   --he-glow-violet-sm: 0 0 14px rgb(155 124 255 / 28%);
 
+  /* ---------------------------------- */
+  /* Surfaces / Panels                   */
+  /* ---------------------------------- */
+
+  /* Base surface backgrounds */
+  --he-surface-bg-default: rgb(3 8 10 / 68%);
+  --he-surface-bg-elevated: rgb(6 17 22 / 82%);
+  --he-surface-bg-strong: rgb(3 8 10 / 92%);
+  --he-surface-bg-active: rgb(8 40 48 / 84%);
+  --he-surface-bg-sacred: rgb(32 25 10 / 42%);
+  --he-surface-bg-danger: rgb(35 8 13 / 46%);
+  --he-surface-bg-corrupted: rgb(18 12 38 / 48%);
+
+  /* Surface gradients */
+  --he-surface-gradient-default:
+    linear-gradient(
+      180deg,
+      rgb(14 36 43 / 52%),
+      rgb(3 8 10 / 72%)
+    );
+
+  --he-surface-gradient-elevated:
+    linear-gradient(
+      180deg,
+      rgb(10 28 36 / 72%),
+      rgb(3 8 10 / 88%)
+    );
+
+  --he-surface-gradient-active:
+    linear-gradient(
+      180deg,
+      rgb(14 56 66 / 74%),
+      rgb(3 12 16 / 90%)
+    );
+
+  --he-surface-gradient-sacred:
+    linear-gradient(
+      180deg,
+      rgb(58 44 16 / 42%),
+      rgb(10 8 3 / 84%)
+    );
+
+  --he-surface-gradient-danger:
+    linear-gradient(
+      180deg,
+      rgb(66 14 24 / 42%),
+      rgb(10 3 5 / 88%)
+    );
+
+  --he-surface-gradient-corrupted:
+    linear-gradient(
+      135deg,
+      rgb(20 12 42 / 58%),
+      rgb(3 16 20 / 82%) 52%,
+      rgb(32 8 44 / 48%)
+    );
+
+  /* Surface borders */
+  --he-surface-border-default: var(--he-border-subtle);
+  --he-surface-border-elevated: var(--he-border-medium);
+  --he-surface-border-active: var(--he-border-active);
+  --he-surface-border-sacred: var(--he-border-sacred);
+  --he-surface-border-danger: var(--he-border-danger);
+  --he-surface-border-corrupted: rgb(155 124 255 / 64%);
+
+  /* Surface shadows */
+  --he-surface-shadow-default:
+    inset 0 1px 0 rgb(255 255 255 / 5%),
+    0 12px 36px rgb(0 0 0 / 36%);
+
+  --he-surface-shadow-elevated:
+    inset 0 1px 0 rgb(255 255 255 / 7%),
+    0 20px 64px rgb(0 0 0 / 54%);
+
+  --he-surface-shadow-active:
+    inset 0 1px 0 rgb(255 255 255 / 8%),
+    0 20px 64px rgb(0 0 0 / 56%),
+    0 0 28px rgb(89 246 255 / 24%);
+
+  --he-surface-shadow-sacred:
+    inset 0 1px 0 rgb(255 255 255 / 6%),
+    0 18px 56px rgb(0 0 0 / 52%),
+    0 0 24px rgb(216 184 106 / 18%);
+
+  --he-surface-shadow-danger:
+    inset 0 1px 0 rgb(255 255 255 / 5%),
+    0 18px 56px rgb(0 0 0 / 52%),
+    0 0 24px rgb(255 95 115 / 20%);
+
+  --he-surface-shadow-corrupted:
+    inset 0 1px 0 rgb(255 255 255 / 5%),
+    0 18px 56px rgb(0 0 0 / 52%),
+    0 0 24px rgb(155 124 255 / 18%),
+    0 0 36px rgb(89 246 255 / 10%);
+
+  /* Glass effects */
+  --he-surface-blur-sm: blur(8px);
+  --he-surface-blur-md: blur(16px);
+  --he-surface-blur-lg: blur(24px);
+
+  /* Panel sizing */
+  --he-panel-padding-sm: var(--he-space-3);
+  --he-panel-padding-md: var(--he-space-5);
+  --he-panel-padding-lg: var(--he-space-6);
+  --he-panel-gap: var(--he-space-4);
+
+  /* Dividers */
+  --he-divider-subtle: linear-gradient(
+    90deg,
+    transparent,
+    rgb(142 248 242 / 24%),
+    transparent
+  );
+
+  --he-divider-active: linear-gradient(
+    90deg,
+    transparent,
+    rgb(89 246 255 / 70%),
+    transparent
+  );
+
+  --he-divider-sacred: linear-gradient(
+    90deg,
+    transparent,
+    rgb(216 184 106 / 70%),
+    transparent
+  );
+
+  --he-divider-danger: linear-gradient(
+    90deg,
+    transparent,
+    rgb(255 95 115 / 70%),
+    transparent
+  );
+
   /* Component tokens */
   --he-panel-bg: var(--he-bg-glass);
   --he-panel-bg-strong: var(--he-bg-glass-strong);

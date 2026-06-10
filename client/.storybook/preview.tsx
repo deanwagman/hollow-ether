@@ -3,6 +3,7 @@ import '../src/styles/fonts.css';
 import '../src/styles/tokens.css';
 import '../src/styles/globals.css';
 import '../src/styles/typography.css';
+import '../src/styles/surfaces.css';
 
 const preview: Preview = {
   parameters: {

@@ -1,0 +1,30 @@
+.he-panel {
+  overflow: hidden;
+}
+
+.he-panel__header,
+.he-panel__content {
+  position: relative;
+  z-index: 1;
+}
+
+.he-panel__header {
+  margin-bottom: var(--he-space-5);
+}
+
+.he-panel__header .he-label,
+.he-panel__header .he-heading {
+  margin: 0;
+}
+
+.he-panel__header .he-label + .he-heading {
+  margin-top: var(--he-space-2);
+}
+
+.he-panel__content > :first-child {
+  margin-top: 0;
+}
+
+.he-panel__content > :last-child {
+  margin-bottom: 0;
+}
