@@ -1,6 +1,7 @@
 /// <reference types="vitest/config" />
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { tanstackRouter } from '@tanstack/router-plugin/vite';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
@@ -9,11 +10,18 @@ const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(file
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 const sharedEntry = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../packages/shared/src/index.ts');
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    tanstackRouter({
+      target: 'react',
+      autoCodeSplitting: true,
+    }),
+    react(),
+  ],
   resolve: {
     alias: {
-      '@hollow-ether/shared': sharedEntry
-    }
+      '@': path.resolve(dirname, 'src'),
+      '@hollow-ether/shared': sharedEntry,
+    },
   },
   server: {
     proxy: {

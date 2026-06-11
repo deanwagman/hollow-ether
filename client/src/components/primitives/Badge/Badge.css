@@ -1,0 +1,92 @@
+.he-badge {
+  --he-badge-color: var(--he-text-secondary);
+  --he-badge-border: var(--he-border-subtle);
+  --he-badge-bg: rgb(3 8 10 / 48%);
+  --he-badge-glow: transparent;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--he-space-1);
+  max-inline-size: 100%;
+  border: 1px solid var(--he-badge-border);
+  border-radius: var(--he-radius-full);
+  background: var(--he-badge-bg);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 5%),
+    0 0 12px var(--he-badge-glow);
+  color: var(--he-badge-color);
+  font-family: var(--he-type-label-font);
+  font-weight: var(--he-type-label-weight);
+  line-height: 1;
+  letter-spacing: var(--he-letter-wider);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.he-badge[data-size="sm"] {
+  min-block-size: 1.5rem;
+  padding: 0 var(--he-space-2);
+  font-size: var(--he-text-2xs);
+}
+
+.he-badge[data-size="md"] {
+  min-block-size: 1.875rem;
+  padding: 0 var(--he-space-3);
+  font-size: var(--he-text-xs);
+}
+
+.he-badge__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.he-badge__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.he-badge[data-tone="stable"] {
+  --he-badge-color: var(--he-state-stable);
+  --he-badge-border: rgb(89 246 255 / 46%);
+  --he-badge-bg: rgb(89 246 255 / 8%);
+  --he-badge-glow: rgb(89 246 255 / 22%);
+}
+
+.he-badge[data-tone="protected"],
+.he-badge[data-tone="sacred"] {
+  --he-badge-color: var(--he-state-protected);
+  --he-badge-border: rgb(216 184 106 / 48%);
+  --he-badge-bg: rgb(216 184 106 / 9%);
+  --he-badge-glow: rgb(216 184 106 / 20%);
+}
+
+.he-badge[data-tone="warning"] {
+  --he-badge-color: var(--he-state-warning);
+  --he-badge-border: rgb(255 184 92 / 48%);
+  --he-badge-bg: rgb(255 184 92 / 9%);
+  --he-badge-glow: rgb(255 184 92 / 20%);
+}
+
+.he-badge[data-tone="danger"] {
+  --he-badge-color: var(--he-state-danger);
+  --he-badge-border: rgb(255 95 115 / 50%);
+  --he-badge-bg: rgb(255 95 115 / 9%);
+  --he-badge-glow: rgb(255 95 115 / 22%);
+}
+
+.he-badge[data-tone="corrupted"] {
+  --he-badge-color: var(--he-state-corrupted);
+  --he-badge-border: rgb(155 124 255 / 50%);
+  --he-badge-bg: rgb(155 124 255 / 9%);
+  --he-badge-glow: rgb(155 124 255 / 22%);
+}
+
+.he-badge[data-tone="memory"] {
+  --he-badge-color: var(--he-state-memory);
+  --he-badge-border: rgb(74 157 255 / 50%);
+  --he-badge-bg: rgb(74 157 255 / 9%);
+  --he-badge-glow: rgb(74 157 255 / 22%);
+}

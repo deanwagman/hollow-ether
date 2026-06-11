@@ -1,6 +1,7 @@
-import { useSessionController } from './game/useSessionController';
+import { createFileRoute } from '@tanstack/react-router';
+import { useSessionController } from '@/game/useSessionController';
 
-export default function App() {
+function GameRoute() {
   const { session, isPending, isError, sceneLabel } = useSessionController();
 
   return (
@@ -13,3 +14,7 @@ export default function App() {
     </main>
   );
 }
+
+export const Route = createFileRoute('/game')({
+  component: GameRoute,
+});
