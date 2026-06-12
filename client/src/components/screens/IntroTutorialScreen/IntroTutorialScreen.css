@@ -3,8 +3,10 @@
   min-height: 100vh;
   overflow: hidden;
   display: grid;
-  place-items: center;
+  justify-items: center;
+  align-items: start;
   padding: var(--he-space-6);
+  padding-top: clamp(8rem, 18vh, 14rem);
   background:
     radial-gradient(circle at 50% 50%, rgb(6 17 22 / 62%), transparent 32rem),
     #000;
@@ -42,43 +44,86 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-rows: auto minmax(9rem, auto);
   justify-items: center;
-  align-content: center;
-  gap: var(--he-space-8);
+  gap: var(--he-space-5);
   width: min(100%, 42rem);
   text-align: center;
 }
 
-.he-intro-tutorial-screen__terminal {
-  display: flex;
-  justify-content: center;
-}
-
-.he-intro-tutorial-screen__continue-stage {
-  display: flex;
-  width: 100%;
-  min-height: 9rem;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.he-intro-tutorial-screen__continue {
+.he-intro-tutorial-screen__terminal-stage {
   display: grid;
-  justify-items: center;
-  gap: var(--he-space-4);
-  width: 100%;
+  place-items: center;
+  min-height: 3.25rem;
+  width: min(100%, 42rem);
 }
 
-.he-intro-tutorial-screen__hint {
-  max-width: 28rem;
-  margin: 0;
-  color: var(--he-text-muted);
-  font-family: var(--he-font-ui);
-  font-size: var(--he-text-xs);
+.he-intro-tutorial-screen__interaction-stage {
+  display: grid;
+  place-items: center;
+  min-height: 4rem;
+  width: min(100%, 42rem);
+}
+
+.he-intro-tutorial-screen__choices-stage {
+  display: grid;
+  place-items: start center;
+  min-height: 24rem;
+  width: min(100%, 30rem);
+}
+
+.he-intro-tutorial-screen__choices-stage:empty {
+  pointer-events: none;
+}
+
+.he-intro-tutorial-screen__question {
+  color: var(--he-color-pale-glow);
+  font-family: var(--he-font-code);
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  line-height: 1.4;
   letter-spacing: 0.08em;
-  line-height: var(--he-line-readable);
-  text-transform: uppercase;
+  text-transform: lowercase;
+  text-shadow:
+    0 0 8px rgb(200 255 250 / 52%),
+    0 0 28px rgb(89 246 255 / 22%);
+}
+
+.he-intro-tutorial-screen__choices {
+  display: grid;
+  gap: var(--he-space-3);
+  width: min(100%, 30rem);
+}
+
+.he-intro-tutorial-screen__echo {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.8em;
+  color: var(--he-color-ether-cyan);
+  font-family: var(--he-font-code);
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  text-shadow:
+    0 0 8px rgb(89 246 255 / 46%),
+    0 0 28px rgb(89 246 255 / 18%);
+}
+
+.he-intro-tutorial-screen__echo span:first-child {
+  color: rgb(142 248 242 / 72%);
+}
+
+@media (max-width: 720px) {
+  .he-intro-tutorial-screen__content {
+    gap: var(--he-space-4);
+  }
+
+  .he-intro-tutorial-screen__choices {
+    width: min(100%, 24rem);
+  }
+
+  .he-intro-tutorial-screen__choices-stage {
+    width: min(100%, 24rem);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
