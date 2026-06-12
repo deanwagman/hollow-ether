@@ -1,0 +1,60 @@
+.he-terminal-sequence {
+  display: inline-flex;
+  align-items: baseline;
+  min-height: 1.4em;
+  color: var(--he-color-ether-cyan);
+  font-family: var(--he-font-code);
+  font-size: clamp(1rem, 1.5vw, 1.35rem);
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  text-shadow:
+    0 0 8px rgb(89 246 255 / 46%),
+    0 0 28px rgb(89 246 255 / 18%);
+}
+
+.he-terminal-sequence__prompt {
+  margin-right: 0.8em;
+  color: rgb(142 248 242 / 72%);
+}
+
+.he-terminal-sequence__text {
+  min-width: 1ch;
+}
+
+.he-terminal-sequence__cursor {
+  display: inline-block;
+  margin-left: 0.12em;
+  color: var(--he-color-pale-glow);
+  text-shadow:
+    0 0 8px rgb(200 255 250 / 70%),
+    0 0 22px rgb(89 246 255 / 35%);
+  animation: he-terminal-cursor-blink 520ms steps(1, end) infinite;
+}
+
+.he-terminal-sequence[data-phase="typing"] .he-terminal-sequence__cursor,
+.he-terminal-sequence[data-phase="deleting"] .he-terminal-sequence__cursor {
+  animation-duration: 420ms;
+}
+
+.he-terminal-sequence[data-phase="complete"] .he-terminal-sequence__cursor {
+  opacity: 0.8;
+}
+
+@keyframes he-terminal-cursor-blink {
+  0%,
+  48% {
+    opacity: 1;
+  }
+
+  49%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .he-terminal-sequence__cursor {
+    animation: none;
+  }
+}

@@ -15,7 +15,7 @@ function TitleRoute() {
   function handleNewGame() {
     clearStoredSessionId();
     void queryClient.resetQueries({ queryKey: GAME_SESSION_KEY });
-    void navigate({ to: '/game' });
+    void navigate({ to: '/new' });
   }
 
   function handleContinue() {
