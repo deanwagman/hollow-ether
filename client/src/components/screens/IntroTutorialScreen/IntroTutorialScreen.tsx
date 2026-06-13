@@ -314,9 +314,9 @@ const terminalGlitchLayerVariants = {
   },
   exit: {
     opacity: 0,
-    filter: 'blur(4px)',
+    filter: 'blur(2px)',
     transition: {
-      duration: 0.24,
+      duration: 0.12,
       ease: [0.22, 1, 0.36, 1] as const,
     },
   },
@@ -521,7 +521,8 @@ export function IntroTutorialScreen(_props: IntroTutorialScreenProps) {
                       FINAL_RESPONSE_CORRUPTED_TEXT[selectedAnswer]
                     }
                     intensity="medium"
-                    durationMs={1450}
+                    durationMs={1600}
+                    fadeOutMs={500}
                     onComplete={handleTerminalGlitchComplete}
                   />
                 </motion.div>

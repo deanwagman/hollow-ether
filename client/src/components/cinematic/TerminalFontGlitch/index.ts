@@ -1,5 +1,6 @@
 export type {
   TerminalFontGlitchIntensity,
+  TerminalFontGlitchPhase,
   TerminalFontGlitchProps,
 } from './TerminalFontGlitch';
 

@@ -4,6 +4,7 @@
   --he-terminal-glitch-offset: 1px;
   --he-terminal-glitch-blur: 0px;
   --he-terminal-glitch-shadow: 26px;
+  --he-terminal-glitch-fade-duration: 500ms;
 
   position: relative;
   display: inline-flex;
@@ -93,6 +94,14 @@
   animation: he-terminal-font-glitch-ghost-b 140ms steps(2, end) infinite;
 }
 
+.he-terminal-font-glitch[data-fading='true'] {
+  opacity: 0;
+  filter: blur(6px);
+  transition:
+    opacity var(--he-terminal-glitch-fade-duration, 500ms) ease-out,
+    filter var(--he-terminal-glitch-fade-duration, 500ms) ease-out;
+}
+
 @keyframes he-terminal-font-glitch-flicker {
   0%,
   100% {
@@ -166,6 +175,10 @@
   .he-terminal-font-glitch__text,
   .he-terminal-font-glitch__ghost {
     animation: none !important;
+  }
+
+  .he-terminal-font-glitch[data-fading='true'] {
+    transition-duration: 120ms;
   }
 
   .he-terminal-font-glitch__ghost {
