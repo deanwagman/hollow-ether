@@ -20,6 +20,7 @@ export type TerminalSequenceProps = {
 type TerminalPhase = 'preBlink' | 'typing' | 'holding' | 'deleting' | 'complete';
 
 const DEFAULT_HOLD_MS = 700;
+const DEFAULT_BETWEEN_LINES_MS = 440;
 
 function wait(ms: number) {
   return new Promise<void>((resolve) => {
@@ -93,7 +94,7 @@ export function TerminalSequence({
             await wait(deletingSpeedMs);
           }
 
-          await wait(220);
+          await wait(DEFAULT_BETWEEN_LINES_MS);
         }
       }
 
