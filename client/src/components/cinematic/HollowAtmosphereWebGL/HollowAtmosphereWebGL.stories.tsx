@@ -1,0 +1,175 @@
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { HollowAtmosphereWebGL } from './HollowAtmosphereWebGL';
+import './HollowAtmosphereWebGL.css';
+
+const meta: Meta<typeof HollowAtmosphereWebGL> = {
+  title: 'Cinematic/HollowAtmosphereWebGL',
+  component: HollowAtmosphereWebGL,
+  args: {
+    scene: 'void',
+    debugControls: false,
+    reducedMotion: false,
+  },
+  decorators: [
+    (Story) => (
+      <div
+        style={{
+          minHeight: '100vh',
+          display: 'grid',
+          placeItems: 'center',
+          background: '#050708',
+          padding: '2rem',
+          boxSizing: 'border-box',
+        }}
+      >
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+export default meta;
+
+type Story = StoryObj<typeof HollowAtmosphereWebGL>;
+
+export const DefaultVoidCube: Story = {
+  render: (args) => (
+    <div
+      style={{
+        width: '960px',
+        height: '540px',
+        maxWidth: '100%',
+        border: '1px solid rgb(142 248 242 / 0.14)',
+        background: '#000',
+      }}
+    >
+      <HollowAtmosphereWebGL {...args} />
+    </div>
+  ),
+};
+
+export const DebugWithControls: Story = {
+  args: {
+    debugControls: true,
+  },
+  render: (args) => (
+    <div
+      style={{
+        width: '960px',
+        height: '540px',
+        maxWidth: '100%',
+        border: '1px solid rgb(216 184 106 / 0.18)',
+        background: '#000',
+      }}
+    >
+      <HollowAtmosphereWebGL {...args} />
+    </div>
+  ),
+};
+
+export const ReducedMotion: Story = {
+  args: {
+    reducedMotion: true,
+  },
+  render: (args) => (
+    <div
+      style={{
+        width: '960px',
+        height: '540px',
+        maxWidth: '100%',
+        border: '1px solid rgb(142 248 242 / 0.14)',
+        background: '#000',
+      }}
+    >
+      <HollowAtmosphereWebGL {...args} />
+    </div>
+  ),
+};
+
+export const ResponsiveFrame: Story = {
+  render: (args) => (
+    <div
+      style={{
+        width: 'min(100%, 960px)',
+        aspectRatio: '16 / 9',
+        minHeight: '360px',
+        border: '1px solid rgb(142 248 242 / 0.14)',
+        background: '#000',
+      }}
+    >
+      <HollowAtmosphereWebGL {...args} />
+    </div>
+  ),
+};
+
+export const TallFrame: Story = {
+  render: (args) => (
+    <div
+      style={{
+        width: '390px',
+        height: '720px',
+        maxWidth: '100%',
+        border: '1px solid rgb(142 248 242 / 0.14)',
+        background: '#000',
+      }}
+    >
+      <HollowAtmosphereWebGL {...args} />
+    </div>
+  ),
+};
+
+export const ScreenShellFrame: Story = {
+  parameters: {
+    layout: 'fullscreen',
+  },
+  render: (args) => (
+    <div className="he-hollow-atmosphere-webgl-story__screen-shell">
+      <HollowAtmosphereWebGL {...args} />
+    </div>
+  ),
+};
+
+export const WithTerminalOverlay: Story = {
+  render: (args) => (
+    <div
+      style={{
+        position: 'relative',
+        width: '960px',
+        height: '540px',
+        maxWidth: '100%',
+        border: '1px solid rgb(142 248 242 / 0.14)',
+        background: '#000',
+        overflow: 'hidden',
+      }}
+    >
+      <HollowAtmosphereWebGL {...args} />
+
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          display: 'grid',
+          placeItems: 'center',
+          pointerEvents: 'none',
+        }}
+      >
+        <div
+          style={{
+            padding: '1rem 1.25rem',
+            color: 'rgb(142 248 242)',
+            fontFamily:
+              'var(--he-font-code, ui-monospace, SFMono-Regular, Menlo, monospace)',
+            fontSize: '1rem',
+            letterSpacing: '0.08em',
+            background: 'rgb(0 0 0 / 0.32)',
+            border: '1px solid rgb(142 248 242 / 0.18)',
+            backdropFilter: 'blur(14px) saturate(1.2)',
+            WebkitBackdropFilter: 'blur(14px) saturate(1.2)',
+          }}
+        >
+          {'> warning: names attract attention'}
+        </div>
+      </div>
+    </div>
+  ),
+};
