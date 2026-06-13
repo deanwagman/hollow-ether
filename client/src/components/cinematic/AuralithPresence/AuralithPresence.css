@@ -1,0 +1,409 @@
+.he-auralith-presence {
+  --he-auralith-cyan-rgb: 142 248 242;
+  --he-auralith-gold-rgb: 216 184 106;
+  --he-auralith-core-opacity: 0.8;
+  --he-auralith-bloom-opacity: 0.34;
+  --he-auralith-ripple-opacity: 0.42;
+  --he-auralith-mote-opacity: 0.66;
+  --he-auralith-scale: 1;
+  --he-auralith-atmosphere: 1;
+
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.98);
+  transition:
+    opacity 900ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.he-auralith-presence[data-visible='true'] {
+  opacity: 1;
+  transform: scale(var(--he-auralith-scale));
+}
+
+.he-auralith-presence[data-intensity='faint'] {
+  --he-auralith-core-opacity: 0.46;
+  --he-auralith-bloom-opacity: 0.16;
+  --he-auralith-ripple-opacity: 0.22;
+  --he-auralith-mote-opacity: 0.36;
+  --he-auralith-scale: 0.96;
+}
+
+.he-auralith-presence[data-intensity='soft'] {
+  --he-auralith-core-opacity: 0.72;
+  --he-auralith-bloom-opacity: 0.28;
+  --he-auralith-ripple-opacity: 0.36;
+  --he-auralith-mote-opacity: 0.54;
+  --he-auralith-scale: 1;
+}
+
+.he-auralith-presence[data-intensity='awake'] {
+  --he-auralith-core-opacity: 0.92;
+  --he-auralith-bloom-opacity: 0.42;
+  --he-auralith-ripple-opacity: 0.48;
+  --he-auralith-mote-opacity: 0.74;
+  --he-auralith-scale: 1.03;
+}
+
+.he-auralith-presence[data-behind-prose] {
+  --he-auralith-atmosphere: 0.68;
+}
+
+.he-auralith-presence[data-behind-prose][data-intensity='faint'] {
+  --he-auralith-atmosphere: 0.74;
+}
+
+.he-auralith-presence[data-behind-prose][data-intensity='soft'] {
+  --he-auralith-core-opacity: 0.62;
+  --he-auralith-bloom-opacity: 0.2;
+  --he-auralith-ripple-opacity: 0.26;
+  --he-auralith-mote-opacity: 0.42;
+}
+
+.he-auralith-presence[data-behind-prose][data-intensity='awake'] {
+  --he-auralith-core-opacity: 0.78;
+  --he-auralith-bloom-opacity: 0.3;
+  --he-auralith-ripple-opacity: 0.34;
+  --he-auralith-mote-opacity: 0.56;
+}
+
+.he-auralith-presence__bloom {
+  position: absolute;
+  width: clamp(16rem, 42vw, 34rem);
+  height: clamp(16rem, 42vw, 34rem);
+  border-radius: 999px;
+  background:
+    radial-gradient(
+      circle,
+      rgb(var(--he-auralith-cyan-rgb) / calc(var(--he-auralith-bloom-opacity) * var(--he-auralith-atmosphere) * 0.5)) 0%,
+      rgb(var(--he-auralith-gold-rgb) / calc(var(--he-auralith-bloom-opacity) * var(--he-auralith-atmosphere) * 0.26)) 22%,
+      rgb(var(--he-auralith-cyan-rgb) / calc(var(--he-auralith-bloom-opacity) * var(--he-auralith-atmosphere) * 0.16)) 42%,
+      transparent 70%
+    );
+  filter: blur(18px);
+  animation: he-auralith-presence-breathe 5200ms ease-in-out infinite;
+}
+
+.he-auralith-presence__ripple {
+  position: absolute;
+  border-radius: 999px;
+  border: 1px solid rgb(var(--he-auralith-cyan-rgb) / var(--he-auralith-ripple-opacity));
+  box-shadow:
+    0 0 18px rgb(var(--he-auralith-cyan-rgb) / 18%),
+    inset 0 0 24px rgb(var(--he-auralith-gold-rgb) / 10%);
+  opacity: var(--he-auralith-ripple-opacity);
+  transform: rotateX(68deg);
+}
+
+.he-auralith-presence__ripple--outer {
+  width: clamp(10.5rem, 28vw, 22.5rem);
+  height: clamp(10.5rem, 28vw, 22.5rem);
+  opacity: calc(var(--he-auralith-ripple-opacity) * var(--he-auralith-atmosphere) * 0.72);
+  animation: he-auralith-presence-ripple-outer 6400ms ease-in-out infinite;
+}
+
+.he-auralith-presence__ripple--inner {
+  width: clamp(6rem, 18vw, 14rem);
+  height: clamp(6rem, 18vw, 14rem);
+  border-color: rgb(var(--he-auralith-gold-rgb) / calc(var(--he-auralith-ripple-opacity) * 0.72));
+  animation: he-auralith-presence-ripple 5200ms ease-in-out infinite reverse;
+}
+
+.he-auralith-presence__beam {
+  position: absolute;
+  width: 3px;
+  height: clamp(8rem, 24vh, 16rem);
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      transparent 12%,
+      rgb(var(--he-auralith-cyan-rgb) / 12%) 24%,
+      rgb(var(--he-auralith-cyan-rgb) / 52%) 44%,
+      rgb(var(--he-auralith-gold-rgb) / 46%) 54%,
+      rgb(var(--he-auralith-cyan-rgb) / 34%) 66%,
+      rgb(var(--he-auralith-cyan-rgb) / 14%) 78%,
+      transparent 88%,
+      transparent 100%
+    );
+  box-shadow:
+    0 0 8px rgb(var(--he-auralith-cyan-rgb) / 28%),
+    0 0 20px rgb(var(--he-auralith-cyan-rgb) / 14%),
+    0 0 32px rgb(var(--he-auralith-gold-rgb) / 10%);
+  filter: blur(0.65px);
+  opacity: calc(var(--he-auralith-core-opacity) * var(--he-auralith-atmosphere) * 0.82);
+  animation: he-auralith-presence-beam-shimmer 4200ms ease-in-out infinite;
+}
+
+.he-auralith-presence__beam::before {
+  content: '';
+  position: absolute;
+  inset: -18% -120%;
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgb(var(--he-auralith-cyan-rgb) / 8%) 34%,
+      rgb(var(--he-auralith-gold-rgb) / 12%) 52%,
+      rgb(var(--he-auralith-cyan-rgb) / 6%) 72%,
+      transparent 100%
+    );
+  filter: blur(6px);
+  opacity: 0.72;
+  animation: he-auralith-presence-beam-aura 5600ms ease-in-out infinite;
+}
+
+.he-auralith-presence__core {
+  position: absolute;
+  width: clamp(0.65rem, 1.8vw, 1rem);
+  height: clamp(0.65rem, 1.8vw, 1rem);
+  border-radius: 999px;
+  background:
+    radial-gradient(
+      circle at 46% 42%,
+      rgb(255 255 245 / 88%) 0%,
+      rgb(var(--he-auralith-gold-rgb) / 72%) 28%,
+      rgb(var(--he-auralith-cyan-rgb) / 38%) 58%,
+      transparent 100%
+    );
+  box-shadow:
+    0 0 10px rgb(255 255 245 / 34%),
+    0 0 22px rgb(var(--he-auralith-gold-rgb) / 28%),
+    0 0 38px rgb(var(--he-auralith-cyan-rgb) / 18%);
+  opacity: calc(var(--he-auralith-core-opacity) * var(--he-auralith-atmosphere));
+  animation: he-auralith-presence-core 3600ms ease-in-out infinite;
+}
+
+.he-auralith-presence__core::before {
+  content: '';
+  position: absolute;
+  inset: -55%;
+  border-radius: 999px;
+  background:
+    radial-gradient(
+      circle at 48% 44%,
+      rgb(var(--he-auralith-gold-rgb) / 42%) 0%,
+      rgb(var(--he-auralith-gold-rgb) / 18%) 34%,
+      transparent 72%
+    );
+  filter: blur(4px);
+  animation: he-auralith-presence-core-warmth 4800ms ease-in-out infinite;
+}
+
+.he-auralith-presence__core::after {
+  content: '';
+  position: absolute;
+  inset: -120%;
+  border-radius: 999px;
+  background:
+    radial-gradient(
+      circle at 50% 52%,
+      rgb(var(--he-auralith-cyan-rgb) / 22%) 0%,
+      rgb(var(--he-auralith-cyan-rgb) / 10%) 38%,
+      rgb(var(--he-auralith-gold-rgb) / 8%) 58%,
+      transparent 78%
+    );
+  filter: blur(10px);
+  animation: he-auralith-presence-core-aqueous 6200ms ease-in-out infinite reverse;
+}
+
+.he-auralith-presence__motes {
+  position: absolute;
+  width: clamp(14rem, 36vw, 30rem);
+  height: clamp(14rem, 36vw, 30rem);
+  border-radius: 999px;
+}
+
+.he-auralith-presence__mote {
+  --he-mote-angle: calc(var(--he-mote-index) * 40deg);
+  --he-mote-distance: calc(4.5rem + (var(--he-mote-index) % 3) * 2rem);
+  --he-mote-size: calc(2px + (var(--he-mote-index) % 3) * 1px);
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--he-mote-size);
+  height: var(--he-mote-size);
+  border-radius: 999px;
+  background: rgb(var(--he-auralith-cyan-rgb) / var(--he-auralith-mote-opacity));
+  box-shadow:
+    0 0 8px rgb(var(--he-auralith-cyan-rgb) / 52%),
+    0 0 16px rgb(var(--he-auralith-gold-rgb) / 18%);
+  transform:
+    rotate(var(--he-mote-angle))
+    translateX(var(--he-mote-distance));
+  animation: he-auralith-presence-mote 7200ms ease-in-out infinite;
+  animation-delay: calc(var(--he-mote-index) * -520ms);
+}
+
+@keyframes he-auralith-presence-breathe {
+  0%,
+  100% {
+    transform: scale(0.96);
+    opacity: calc(var(--he-auralith-bloom-opacity) * 0.82);
+  }
+
+  50% {
+    transform: scale(1.04);
+    opacity: var(--he-auralith-bloom-opacity);
+  }
+}
+
+@keyframes he-auralith-presence-ripple {
+  0%,
+  100% {
+    transform: rotateX(68deg) scale(0.96);
+    opacity: calc(var(--he-auralith-ripple-opacity) * var(--he-auralith-atmosphere) * 0.68);
+  }
+
+  50% {
+    transform: rotateX(68deg) scale(1.04);
+    opacity: calc(var(--he-auralith-ripple-opacity) * var(--he-auralith-atmosphere));
+  }
+}
+
+@keyframes he-auralith-presence-ripple-outer {
+  0%,
+  100% {
+    transform: rotateX(68deg) scale(0.84);
+    opacity: calc(var(--he-auralith-ripple-opacity) * var(--he-auralith-atmosphere) * 0.58);
+  }
+
+  50% {
+    transform: rotateX(68deg) scale(0.92);
+    opacity: calc(var(--he-auralith-ripple-opacity) * var(--he-auralith-atmosphere) * 0.72);
+  }
+}
+
+@keyframes he-auralith-presence-beam-shimmer {
+  0%,
+  100% {
+    opacity: calc(var(--he-auralith-core-opacity) * var(--he-auralith-atmosphere) * 0.68);
+    transform: scaleY(0.92) scaleX(0.94);
+  }
+
+  21% {
+    opacity: calc(var(--he-auralith-core-opacity) * var(--he-auralith-atmosphere) * 0.82);
+    transform: scaleY(0.98) scaleX(1.02);
+  }
+
+  47% {
+    opacity: calc(var(--he-auralith-core-opacity) * var(--he-auralith-atmosphere) * 0.74);
+    transform: scaleY(1.02) scaleX(0.98);
+  }
+
+  68% {
+    opacity: calc(var(--he-auralith-core-opacity) * var(--he-auralith-atmosphere) * 0.86);
+    transform: scaleY(0.96) scaleX(1.01);
+  }
+
+  84% {
+    opacity: calc(var(--he-auralith-core-opacity) * var(--he-auralith-atmosphere) * 0.7);
+    transform: scaleY(1) scaleX(0.97);
+  }
+}
+
+@keyframes he-auralith-presence-beam-aura {
+  0%,
+  100% {
+    opacity: 0.48;
+    transform: scaleY(0.94);
+  }
+
+  38% {
+    opacity: 0.78;
+    transform: scaleY(1.04);
+  }
+
+  72% {
+    opacity: 0.56;
+    transform: scaleY(0.98);
+  }
+}
+
+@keyframes he-auralith-presence-core {
+  0%,
+  100% {
+    transform: scale(0.92);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes he-auralith-presence-core-warmth {
+  0%,
+  100% {
+    opacity: 0.62;
+    transform: scale(0.94) translate(-4%, -2%);
+  }
+
+  50% {
+    opacity: 0.92;
+    transform: scale(1.08) translate(3%, 2%);
+  }
+}
+
+@keyframes he-auralith-presence-core-aqueous {
+  0%,
+  100% {
+    opacity: 0.42;
+    transform: scale(0.96);
+  }
+
+  50% {
+    opacity: 0.72;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes he-auralith-presence-mote {
+  0%,
+  100% {
+    opacity: calc(var(--he-auralith-mote-opacity) * 0.32);
+    translate: 0 0;
+  }
+
+  50% {
+    opacity: var(--he-auralith-mote-opacity);
+    translate: 0 -0.75rem;
+  }
+}
+
+@media (max-width: 720px) {
+  .he-auralith-presence__bloom {
+    width: clamp(14rem, 72vw, 24rem);
+    height: clamp(14rem, 72vw, 24rem);
+  }
+
+  .he-auralith-presence__beam {
+    height: clamp(7rem, 22vh, 12rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .he-auralith-presence,
+  .he-auralith-presence__bloom,
+  .he-auralith-presence__ripple,
+  .he-auralith-presence__beam,
+  .he-auralith-presence__beam::before,
+  .he-auralith-presence__core,
+  .he-auralith-presence__core::before,
+  .he-auralith-presence__core::after,
+  .he-auralith-presence__mote {
+    animation: none !important;
+    transition-duration: 120ms !important;
+  }
+
+  .he-auralith-presence__mote {
+    opacity: calc(var(--he-auralith-mote-opacity) * 0.42);
+  }
+}
