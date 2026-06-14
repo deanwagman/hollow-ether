@@ -1,5 +1,6 @@
 .he-intro-tutorial-screen {
   position: relative;
+  isolation: isolate;
   min-height: 100vh;
   overflow: hidden;
   display: grid;
@@ -12,6 +13,19 @@
     radial-gradient(circle at 50% 50%, rgb(6 17 22 / 62%), transparent 32rem),
     #000;
   color: var(--he-text-primary);
+}
+
+.he-intro-tutorial-screen__webgl-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.he-intro-tutorial-screen__webgl-background .he-hollow-atmosphere-webgl {
+  width: 100%;
+  height: 100%;
 }
 
 .he-intro-tutorial-screen__noise {

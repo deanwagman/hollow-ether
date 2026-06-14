@@ -173,3 +173,131 @@ export const WithTerminalOverlay: Story = {
     </div>
   ),
 };
+
+export const BlackSignal: Story = {
+  args: {
+    scene: 'blackSignal',
+  },
+  render: (args) => (
+    <div
+      style={{
+        width: '960px',
+        height: '540px',
+        maxWidth: '100%',
+        border: '1px solid rgb(142 248 242 / 0.14)',
+        background: '#000',
+      }}
+    >
+      <HollowAtmosphereWebGL {...args} />
+    </div>
+  ),
+};
+
+export const BlackSignalReducedMotion: Story = {
+  args: {
+    scene: 'blackSignal',
+    reducedMotion: true,
+  },
+  render: (args) => (
+    <div
+      style={{
+        width: '960px',
+        height: '540px',
+        maxWidth: '100%',
+        border: '1px solid rgb(142 248 242 / 0.14)',
+        background: '#000',
+      }}
+    >
+      <HollowAtmosphereWebGL {...args} />
+    </div>
+  ),
+};
+
+export const BlackSignalTallFrame: Story = {
+  args: {
+    scene: 'blackSignal',
+  },
+  render: (args) => (
+    <div
+      style={{
+        width: '390px',
+        height: '720px',
+        maxWidth: '100%',
+        border: '1px solid rgb(142 248 242 / 0.14)',
+        background: '#000',
+      }}
+    >
+      <HollowAtmosphereWebGL {...args} />
+    </div>
+  ),
+};
+
+export const BlackSignalWithTerminalOverlay: Story = {
+  args: {
+    scene: 'blackSignal',
+  },
+  render: (args) => (
+    <div
+      style={{
+        position: 'relative',
+        width: '960px',
+        height: '540px',
+        maxWidth: '100%',
+        border: '1px solid rgb(142 248 242 / 0.14)',
+        background: '#000',
+        overflow: 'hidden',
+      }}
+    >
+      <HollowAtmosphereWebGL {...args} />
+
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          display: 'grid',
+          placeItems: 'center',
+          pointerEvents: 'none',
+        }}
+      >
+        <div
+          style={{
+            padding: '1rem 1.25rem',
+            color: 'rgb(142 248 242)',
+            fontFamily:
+              'var(--he-font-code, ui-monospace, SFMono-Regular, Menlo, monospace)',
+            fontSize: '1rem',
+            letterSpacing: '0.08em',
+            background: 'rgb(0 0 0 / 0.34)',
+            border: '1px solid rgb(142 248 242 / 0.18)',
+            boxShadow:
+              '0 0 24px rgb(142 248 242 / 0.08), inset 0 1px 0 rgb(255 255 255 / 0.05)',
+            backdropFilter: 'blur(14px) saturate(1.2)',
+            WebkitBackdropFilter: 'blur(14px) saturate(1.2)',
+          }}
+        >
+          {'> signal found'}
+        </div>
+      </div>
+    </div>
+  ),
+};
+
+export const BlackSignalStructureCheck: Story = {
+  args: {
+    scene: 'blackSignal',
+    debugControls: true,
+  },
+  render: (args) => (
+    <div
+      style={{
+        width: '1280px',
+        height: '720px',
+        maxWidth: '100%',
+        border: '1px solid rgb(142 248 242 / 0.14)',
+        background: '#000',
+      }}
+    >
+      <HollowAtmosphereWebGL {...args} />
+    </div>
+  ),
+};

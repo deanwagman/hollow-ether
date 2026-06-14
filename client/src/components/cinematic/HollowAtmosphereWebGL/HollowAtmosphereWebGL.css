@@ -42,3 +42,18 @@
   min-height: 100dvh;
   background: #000;
 }
+
+.he-hollow-atmosphere-webgl[data-scene="blackSignal"] {
+  background:
+    radial-gradient(
+      ellipse at 50% 72%,
+      rgb(142 248 242 / 0.075),
+      transparent 28rem
+    ),
+    radial-gradient(
+      circle at 50% 45%,
+      rgb(142 248 242 / 0.045),
+      transparent 34rem
+    ),
+    linear-gradient(180deg, #000 0%, #02070a 50%, #000 100%);
+}

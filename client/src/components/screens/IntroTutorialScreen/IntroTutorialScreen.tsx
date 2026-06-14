@@ -3,8 +3,10 @@ import { AnimatePresence, motion } from 'motion/react';
 import type { CinematicTextRevealLine } from '../../cinematic/CinematicTextReveal';
 import { CinematicTextReveal } from '../../cinematic/CinematicTextReveal';
 import { IntroChoiceCard } from '../../cinematic/IntroChoiceCard';
+import { HollowAtmosphereWebGL } from '../../cinematic/HollowAtmosphereWebGL';
 import { TerminalFontGlitch } from '../../cinematic/TerminalFontGlitch';
 import { TerminalSequence } from '../../cinematic/TerminalSequence';
+import { useReducedMotionPreference } from '../../../game/useReducedMotionPreference';
 import './IntroTutorialScreen.css';
 
 export type IntroTutorialScreenProps = {
@@ -343,6 +345,7 @@ const proseRevealVariants = {
 };
 
 export function IntroTutorialScreen(_props: IntroTutorialScreenProps) {
+  const shouldReduceMotion = useReducedMotionPreference();
   const [beat, setBeat] = useState<IntroTutorialBeat>('terminalBoot');
   const [selectedAnswer, setSelectedAnswer] = useState<IntroNameAnswer | null>(
     null,
@@ -456,6 +459,16 @@ export function IntroTutorialScreen(_props: IntroTutorialScreenProps) {
       className="he-intro-tutorial-screen"
       data-mode={isProseMode ? 'prose' : 'terminal'}
     >
+      <div
+        className="he-intro-tutorial-screen__webgl-background"
+        aria-hidden="true"
+      >
+        <HollowAtmosphereWebGL
+          scene="blackSignal"
+          reducedMotion={shouldReduceMotion}
+        />
+      </div>
+
       <div className="he-intro-tutorial-screen__noise" aria-hidden="true" />
       <div className="he-intro-tutorial-screen__scanline" aria-hidden="true" />
 
