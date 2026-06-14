@@ -1,37 +1,37 @@
 .he-intro-tutorial-screen {
   position: relative;
-  isolation: isolate;
-  min-height: 100vh;
+  width: 100%;
+  height: 100dvh;
+  min-height: 100dvh;
   overflow: hidden;
-  display: grid;
-  justify-items: center;
-  align-items: start;
-  padding-inline: var(--he-space-6);
-  padding-block-end: var(--he-space-6);
-  padding-top: clamp(7rem, 16vh, 12rem);
-  background:
-    radial-gradient(circle at 50% 50%, rgb(6 17 22 / 62%), transparent 32rem),
-    #000;
+  isolation: isolate;
+  background: #000;
   color: var(--he-text-primary);
 }
 
-.he-intro-tutorial-screen__webgl-background {
-  position: absolute;
+.he-intro-tutorial-screen__atmosphere {
+  position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
+  contain: layout paint size;
 }
 
-.he-intro-tutorial-screen__webgl-background .he-hollow-atmosphere-webgl {
+.he-intro-tutorial-screen__atmosphere .he-hollow-atmosphere-webgl {
   width: 100%;
   height: 100%;
 }
 
-.he-intro-tutorial-screen__noise {
-  position: absolute;
+.he-intro-tutorial-screen__noise,
+.he-intro-tutorial-screen__scanline {
+  position: fixed;
   inset: 0;
+  z-index: 1;
   pointer-events: none;
+}
+
+.he-intro-tutorial-screen__noise {
   opacity: 0.08;
   background-image:
     radial-gradient(circle, rgb(200 255 250 / 28%) 0 1px, transparent 1.5px);
@@ -40,9 +40,6 @@
 }
 
 .he-intro-tutorial-screen__scanline {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
   opacity: 0.18;
   background:
     repeating-linear-gradient(
@@ -55,13 +52,27 @@
   mask-image: radial-gradient(circle at 50% 50%, black, transparent 72%);
 }
 
-.he-intro-tutorial-screen__content {
+.he-intro-tutorial-screen__ui {
   position: relative;
-  z-index: 1;
+  z-index: 2;
+  width: 100%;
+  height: 100dvh;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  pointer-events: auto;
+  padding-inline: var(--he-space-6);
+  padding-block-end: var(--he-space-6);
+  padding-top: clamp(7rem, 16vh, 12rem);
+  box-sizing: border-box;
+}
+
+.he-intro-tutorial-screen__content {
   display: grid;
   justify-items: center;
   gap: var(--he-space-5);
   width: min(100%, 42rem);
+  max-height: 100%;
   text-align: center;
 }
 
@@ -107,13 +118,10 @@
   width: min(100%, 30rem);
   opacity: 1;
   overflow: hidden;
-  transition:
-    min-height 520ms cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 320ms ease;
+  transition: opacity 320ms ease;
 }
 
 .he-intro-tutorial-screen__choices-stage[data-collapsed='true'] {
-  min-height: 0;
   opacity: 0;
   pointer-events: none;
 }
@@ -170,8 +178,20 @@
   width: 100%;
 }
 
+.he-intro-tutorial-screen[data-mode='prose'] .he-intro-tutorial-screen__choices-stage {
+  min-height: 0;
+}
+
+.he-intro-tutorial-screen[data-mode='prose'] .he-intro-tutorial-screen__terminal-stage {
+  min-height: 0;
+}
+
+.he-intro-tutorial-screen[data-mode='prose'] .he-intro-tutorial-screen__ui {
+  place-items: start center;
+}
+
 @media (max-width: 720px) {
-  .he-intro-tutorial-screen {
+  .he-intro-tutorial-screen__ui {
     padding-inline: var(--he-space-4);
   }
 
@@ -186,10 +206,6 @@
   .he-intro-tutorial-screen__choices-stage {
     width: min(100%, 24rem);
     min-height: 19rem;
-  }
-
-  .he-intro-tutorial-screen__choices-stage[data-collapsed='true'] {
-    min-height: 0;
   }
 
   .he-intro-tutorial-screen__prose-stage {

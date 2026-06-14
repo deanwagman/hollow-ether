@@ -6,7 +6,7 @@ const meta: Meta<typeof HollowAtmosphereWebGL> = {
   title: 'Cinematic/HollowAtmosphereWebGL',
   component: HollowAtmosphereWebGL,
   args: {
-    scene: 'void',
+    scene: 'blackSignal',
     debugControls: false,
     reducedMotion: false,
   },
@@ -33,6 +33,9 @@ export default meta;
 type Story = StoryObj<typeof HollowAtmosphereWebGL>;
 
 export const DefaultVoidCube: Story = {
+  args: {
+    scene: 'void',
+  },
   render: (args) => (
     <div
       style={{
@@ -50,6 +53,7 @@ export const DefaultVoidCube: Story = {
 
 export const DebugWithControls: Story = {
   args: {
+    scene: 'void',
     debugControls: true,
   },
   render: (args) => (
@@ -69,6 +73,7 @@ export const DebugWithControls: Story = {
 
 export const ReducedMotion: Story = {
   args: {
+    scene: 'void',
     reducedMotion: true,
   },
   render: (args) => (
@@ -87,6 +92,9 @@ export const ReducedMotion: Story = {
 };
 
 export const ResponsiveFrame: Story = {
+  args: {
+    scene: 'void',
+  },
   render: (args) => (
     <div
       style={{
@@ -103,6 +111,9 @@ export const ResponsiveFrame: Story = {
 };
 
 export const TallFrame: Story = {
+  args: {
+    scene: 'void',
+  },
   render: (args) => (
     <div
       style={{
@@ -119,6 +130,9 @@ export const TallFrame: Story = {
 };
 
 export const ScreenShellFrame: Story = {
+  args: {
+    scene: 'void',
+  },
   parameters: {
     layout: 'fullscreen',
   },
@@ -130,6 +144,9 @@ export const ScreenShellFrame: Story = {
 };
 
 export const WithTerminalOverlay: Story = {
+  args: {
+    scene: 'void',
+  },
   render: (args) => (
     <div
       style={{

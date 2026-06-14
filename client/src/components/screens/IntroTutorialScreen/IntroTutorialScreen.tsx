@@ -460,7 +460,7 @@ export function IntroTutorialScreen(_props: IntroTutorialScreenProps) {
       data-mode={isProseMode ? 'prose' : 'terminal'}
     >
       <div
-        className="he-intro-tutorial-screen__webgl-background"
+        className="he-intro-tutorial-screen__atmosphere"
         aria-hidden="true"
       >
         <HollowAtmosphereWebGL
@@ -473,9 +473,10 @@ export function IntroTutorialScreen(_props: IntroTutorialScreenProps) {
       <div className="he-intro-tutorial-screen__scanline" aria-hidden="true" />
 
       <section
-        className="he-intro-tutorial-screen__content"
+        className="he-intro-tutorial-screen__ui"
         aria-label="Intro tutorial"
       >
+        <div className="he-intro-tutorial-screen__content">
         <div className="he-intro-tutorial-screen__terminal-stage">
           <div className="he-intro-tutorial-screen__terminal-slot">
             <AnimatePresence mode="sync">
@@ -664,6 +665,7 @@ export function IntroTutorialScreen(_props: IntroTutorialScreenProps) {
               </motion.div>
             )}
           </AnimatePresence>
+        </div>
         </div>
       </section>
     </main>

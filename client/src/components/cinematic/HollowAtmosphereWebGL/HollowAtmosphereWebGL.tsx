@@ -2,7 +2,13 @@ import { useEffect, useMemo, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import { Bloom, EffectComposer } from '@react-three/postprocessing';
-import { AdditiveBlending, Color, DoubleSide, Object3D } from 'three';
+import {
+  AdditiveBlending,
+  Color,
+  DoubleSide,
+  NormalBlending,
+  Object3D,
+} from 'three';
 import type {
   InstancedMesh,
   Mesh,
@@ -63,6 +69,10 @@ const BLACK_SIGNAL_DASH_OPACITY = 0.01;
 
 const BLACK_SIGNAL_STREAK_OPACITY = 0.01;
 
+const BLACK_SIGNAL_TERMINAL_FIELD_OPACITY = 0.16;
+const BLACK_SIGNAL_TERMINAL_GRID_OPACITY = 0.04;
+const BLACK_SIGNAL_TERMINAL_VIGNETTE_OPACITY = 0.22;
+
 const blackSignalParticleVertexShader = `
   attribute float aAlpha;
   attribute float aSize;
@@ -119,6 +129,71 @@ const blackSignalParticleFragmentShader = `
     }
 
     gl_FragColor = vec4(uColor, alpha);
+  }
+`;
+
+const blackSignalTerminalFieldVertexShader = `
+  varying vec2 vUv;
+
+  void main() {
+    vUv = uv;
+    gl_Position = vec4(position.xy, 0.0, 1.0);
+  }
+`;
+
+const blackSignalTerminalFieldFragmentShader = `
+  precision highp float;
+
+  varying vec2 vUv;
+
+  uniform float uTime;
+  uniform float uOpacity;
+  uniform float uGridOpacity;
+  uniform float uVignetteOpacity;
+
+  float hash(vec2 p) {
+    p = fract(p * vec2(123.34, 456.21));
+    p += dot(p, p + 45.32);
+    return fract(p.x * p.y);
+  }
+
+  void main() {
+    vec2 uv = vUv;
+
+    vec2 centered = uv - 0.5;
+    float dist = length(centered);
+
+    float vignette = smoothstep(0.18, 0.82, dist);
+
+    float scan = sin((uv.y + uTime * 0.018) * 900.0) * 0.5 + 0.5;
+    float scanFine = sin((uv.y - uTime * 0.011) * 1850.0) * 0.5 + 0.5;
+
+    vec2 gridUv = uv * vec2(180.0, 100.0);
+    vec2 gridLine = abs(fract(gridUv) - 0.5);
+    float grid =
+      1.0 - smoothstep(0.488, 0.5, max(gridLine.x, gridLine.y));
+
+    float noise = hash(floor(uv * vec2(360.0, 220.0)) + floor(uTime * 6.0));
+
+    float phosphor =
+      grid * uGridOpacity +
+      scan * 0.018 +
+      scanFine * 0.008 +
+      noise * 0.018;
+
+    float darken = vignette * uVignetteOpacity + uOpacity;
+
+    vec3 terminalTint = vec3(0.20, 0.95, 0.92);
+
+    vec3 color = terminalTint * phosphor;
+
+    float alpha =
+      darken +
+      phosphor * 0.55;
+
+    alpha = clamp(alpha, 0.0, 0.34);
+
+    gl_FragColor = vec4(color * 0.35, alpha);
   }
 `;
 
@@ -507,6 +582,47 @@ function BlackSignalStreaks({
   );
 }
 
+type BlackSignalTerminalFieldProps = {
+  shouldReduceMotion: boolean;
+};
+
+function BlackSignalTerminalField({
+  shouldReduceMotion,
+}: BlackSignalTerminalFieldProps) {
+  const materialRef = useRef<ShaderMaterial | null>(null);
+
+  useFrame(({ clock }) => {
+    if (!materialRef.current) return;
+
+    materialRef.current.uniforms.uTime.value = shouldReduceMotion
+      ? 0
+      : clock.getElapsedTime();
+  });
+
+  return (
+    <mesh renderOrder={10}>
+      <planeGeometry args={[2, 2]} />
+      <shaderMaterial
+        ref={materialRef}
+        transparent
+        depthWrite={false}
+        depthTest={false}
+        blending={NormalBlending}
+        uniforms={{
+          uTime: { value: 0 },
+          uOpacity: { value: BLACK_SIGNAL_TERMINAL_FIELD_OPACITY },
+          uGridOpacity: { value: BLACK_SIGNAL_TERMINAL_GRID_OPACITY },
+          uVignetteOpacity: {
+            value: BLACK_SIGNAL_TERMINAL_VIGNETTE_OPACITY,
+          },
+        }}
+        vertexShader={blackSignalTerminalFieldVertexShader}
+        fragmentShader={blackSignalTerminalFieldFragmentShader}
+      />
+    </mesh>
+  );
+}
+
 type BlackSignalSceneProps = {
   debugControls: boolean;
   shouldReduceMotion: boolean;
@@ -528,6 +644,7 @@ function BlackSignalScene({
       <BlackSignalTracePlanes shouldReduceMotion={shouldReduceMotion} />
       <BlackSignalDashPlanes shouldReduceMotion={shouldReduceMotion} />
       <BlackSignalStreaks shouldReduceMotion={shouldReduceMotion} />
+      <BlackSignalTerminalField shouldReduceMotion={shouldReduceMotion} />
 
       {debugControls && (
         <OrbitControls enableDamping dampingFactor={0.08} makeDefault />
@@ -537,7 +654,7 @@ function BlackSignalScene({
 }
 
 export function HollowAtmosphereWebGL({
-  scene = 'void',
+  scene = 'blackSignal',
   debugControls = false,
   reducedMotion,
   className,
